@@ -6,20 +6,32 @@
 
     <md-card-content>
 
-        <form novalidate name="signInForm">
+        <form novalidate name="signInForm" ng-submit="signInForm.$valid && submit()">
 
             <div layout="column">
                 <md-input-container flex>
                     <label>Email</label>
-                    <input type="email" ng-model="user.email">
+                    <input name="email" type="email" ng-model="user.email">
+
+                    <div ng-messages="signInForm.email.$error">
+                        <div ng-message="emailNotFound">Email not found</div>
+                    </div>
                 </md-input-container>
             </div>
 
             <div layout="column">
                 <md-input-container flex>
                     <label>Password</label>
-                    <input type="password" ng-model="user.password">
+                    <input name="password" type="password" ng-model="user.password">
+
+                    <div ng-messages="signInForm.password.$error">
+                        <div ng-message="badPassword">Password does not match</div>
+                    </div>
                 </md-input-container>
+            </div>
+
+            <div layout="column">
+                <md-button class="md-raised md-primary">Enter</md-button>
             </div>
 
         </form>

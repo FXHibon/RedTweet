@@ -1,13 +1,16 @@
 module.exports = function (router) {
 
+    var redisAccess = require('redis');
+    var debug = require('debug')('RedTweet:server');
+
     /*******************
-     *  API routes
+     *  API's routes
      *******************/
 
     /**
-     * handle authentication
+     * Handle authentication
      */
-    router.get('/auth', function (req, res, next) {
+    router.post('/auth', function (req, res, next) {
         res.json({data: "coucou"});
     });
 
