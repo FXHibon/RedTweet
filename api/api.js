@@ -3,7 +3,7 @@ module.exports = function (router) {
     /**
      * createClient(port, host)
      */
-    var redisClient = require('redis').createClient(6379, "192.168.1.23");
+    var redisClient = require('redis').createClient(6379, "127.0.0.1");
     var apiDebug = require('debug')('RedTweet:api');
     var redisDebug = require('debug')('RedTweet:redis');
 
@@ -20,7 +20,8 @@ module.exports = function (router) {
      */
     router.post('/auth', function (req, res, next) {
         var user = req.body;
-        var userId = redisClient.hget('users', user.name);
+        redisClient.hget('users', user.name, apiDebug);
+
         var status = 200;
         var objResponse = {};
 
@@ -29,12 +30,12 @@ module.exports = function (router) {
             status = 401;
             objResponse.cause = "name";
         } else {
-            var password = redisClient.hget('user:' + userId, 'password');
+            var password = redisClient.hget('user:' + userId, 'password', apiDebug);
             if (password !== user.password) {
                 status = 401;
                 objResponse.cause = "password";
             } else {
-                var cookie = redisClient.hget('user:' + userId, 'auth');
+                var cookie = redisClient.hget('user:' + userId, 'auth', apiDebug);
                 res.cookie('auth', cookie);
             }
         }
