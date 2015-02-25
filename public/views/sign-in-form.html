@@ -10,11 +10,11 @@
 
             <div layout="column">
                 <md-input-container flex>
-                    <label>Email</label>
-                    <input name="email" type="email" ng-model="user.email">
+                    <label>Name</label>
+                    <input name="name" ng-model="user.email" required>
 
-                    <div ng-messages="signInForm.email.$error">
-                        <div ng-message="emailNotFound">Email not found</div>
+                    <div ng-messages="signInForm.name.$error">
+                        <div ng-message="nameNotFound">Username not found</div>
                     </div>
                 </md-input-container>
             </div>
@@ -22,7 +22,7 @@
             <div layout="column">
                 <md-input-container flex>
                     <label>Password</label>
-                    <input name="password" type="password" ng-model="user.password">
+                    <input name="password" type="password" ng-model="user.password" required>
 
                     <div ng-messages="signInForm.password.$error">
                         <div ng-message="badPassword">Password does not match</div>

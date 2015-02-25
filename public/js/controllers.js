@@ -2,11 +2,11 @@
  * Created by Fx on 25/02/2015.
  */
 
-var controllers = angular.module('Controllers', ['ngMaterial', 'RedApi']);
+var controllers = angular.module('Controllers', ['ngMaterial', 'RedApi', 'ngMessages']);
 
 controllers.controller('SignInController', ['$scope', '$http', '$location',
     function ($scope, $http, $location) {
-        $scope.user = {email: '', password: ''};
+        $scope.user = {name: '', password: ''};
 
         $scope.submit = function () {
             $http.post('/api/auth', $scope.user)
@@ -14,9 +14,15 @@ controllers.controller('SignInController', ['$scope', '$http', '$location',
                     $location.url('/home');
                 })
                 .error(function (data, status) {
-                    $scope.signInForm.email.$error.emailNotFound = true;
-                    $scope.signInForm.password.$error.badPassword = true;
-                    console.log(data, status);
+                    if (data.cause === "name") {
+                        $scope.signInForm.name.$error.nameNotFound = true;
+                    } else {
+                        delete $scope.signInForm.name.$error.nameNotFound;
+                    }
+
+                    if (data.cause === "password") {
+                        delete $scope.signInForm.password.$error.badPassword;
+                    }
                 });
         };
     }

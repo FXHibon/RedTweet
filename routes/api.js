@@ -22,7 +22,7 @@ require('../api/api.js')(router);
  *********************************************/
 router.use(function (req, res, next) {
     res.status(400).json({
-        reason: "api's method not found",
+        cause: "api's method not found",
         url: req.originalUrl,
         method: req.method,
         params: req.query
