@@ -1,0 +1,17 @@
+{
+  "name": "RedTweet",
+  "version": "0.0.0",
+  "authors": [
+    "FXHibon <hibonfx@gmail.com>"
+  ],
+  "description": "Basic twitter clone using redis, nodejs and angular",
+  "main": "bin/www",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
