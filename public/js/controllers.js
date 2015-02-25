@@ -21,6 +21,8 @@ controllers.controller('SignInController', ['$scope', '$http', '$location',
                     }
 
                     if (data.cause === "password") {
+                        $scope.signInForm.password.$error.badPassword = true;
+                    } else {
                         delete $scope.signInForm.password.$error.badPassword;
                     }
                 });
