@@ -14,7 +14,7 @@
 /**
  * createClient(port, host)
  */
-var redisClient = require('redis').createClient(6379, "192.168.248.129");
+var redisClient = require('redis').createClient(6379, "192.168.1.23");
 var async = require('async');
 var uuid = require('node-uuid');
 var apiDebug = require('debug')('RedTweet:api');
@@ -72,3 +72,30 @@ module.exports.authenticate = function (tmpUser, httpResponse) {
         res.status(status).json(objResponse);
     });
 };
+
+/**
+ * record a new user
+ * @param user User to record
+ * @param resp HTTP Response
+ */
+module.exports.suscribe = function (userTmp, resp) {
+    var user = userTmp;
+    var checkUserNameAvailability = function (callback) {
+        redisClient.hget(['users'], callback);
+    };
+    var checkEmailAvailability;
+    var checkPasswordMatch;
+
+    async.waterfall([
+            checkUserNameAvailability,
+            checkEmailAvailability,
+            checkPasswordMatch
+        ],
+        function (err, result) {
+            if (!err) {
+                res.status(200).json();
+            } else {
+                res.status(400).json({cause: err});
+            }
+        });
+}

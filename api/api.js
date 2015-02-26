@@ -7,23 +7,7 @@ module.exports = function (router) {
      *******************/
 
     router.post('/suscribe', function (req, res, next) {
-
-        var checkUserNameAvailability;
-        var checkEmailAvailability;
-        var checkPasswordMatch;
-
-        async.waterfall([
-                checkUserNameAvailability,
-                checkEmailAvailability,
-                checkPasswordMatch
-            ],
-            function (err, result) {
-                if (!err) {
-                    res.status(200).json()
-                } else {
-                    res.status(400).json({cause: err})
-                }
-            });
+        apiServices.suscribe(req.body, res);
     });
 
     /**
