@@ -14,6 +14,10 @@ app.config(['$routeProvider',
                 templateUrl: '../views/sign-in-form.html',
                 controller: 'SignInController'
             })
+            .when('/sign-up', {
+                templateUrl: '../views/sign-up-form.html',
+                controller: 'SignUpController'
+            })
             .when('/home', {
                 templateUrl: '../views/home.html',
                 controller: 'HomeController'

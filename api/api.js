@@ -1,63 +1,99 @@
 module.exports = function (router) {
-    /**
-     * createClient(port, host)
-     */
-    var redisClient = require('redis').createClient(6379, "192.168.248.129");
-    var async = require('async');
-    var apiDebug = require('debug')('RedTweet:api');
-    var redisDebug = require('debug')('RedTweet:redis');
 
-    redisClient.on('error', function (err) {
-        redisDebug("Error: ", err);
-    });
+    var apiServices = require('./apiServices');
 
     /*******************
      *  API's routes
      *******************/
+
+    router.post('/suscribe', function (req, res, next) {
+
+        var checkUserNameAvailability;
+        var checkEmailAvailability;
+        var checkPasswordMatch;
+
+        async.waterfall([
+                checkUserNameAvailability,
+                checkEmailAvailability,
+                checkPasswordMatch
+            ],
+            function (err, result) {
+                if (!err) {
+                    res.status(200).json()
+                } else {
+                    res.status(400).json({cause: err})
+                }
+            });
+    });
 
     /**
      * Handle authentication
      */
     router.post('/auth', function (req, res, next) {
         var user = req.body;
-
-        var objResponse = {};
-        var userId;
-        var status = 200;
-
-        var getLogin = function (callback) {
-            redisClient.hget(['users', user.name], callback);
-        };
-
-        var getPassword = function (id, callback) {
-            if (id) {
-                userId = id;
-                redisClient.hget(['user:' + id, 'password'], callback);
-            } else {
-                callback('name');
-            }
-        };
-
-        var getCookie = function (password, callback) {
-            if (password && password === user.password) {
-                redisClient.hget('user:' + userId, 'auth', callback);
-            } else {
-                callback('password');
-            }
-        };
-
-        async.waterfall([getLogin, getPassword, getCookie], function (err, cookieVal) {
-            if (err) {
-                apiDebug("error: ", err);
-                status = 401;
-                objResponse.cause = err;
-            } else {
-                apiDebug("ok: cookie:", cookieVal);
-                status = 200;
-                res.cookie('auth', cookieVal);
-            }
-            res.status(status).json(objResponse);
-        });
+        apiServices.authenticate(user, res);
     });
 
+    /**
+     * To use following methods, user must be authenticated
+     * So let's check it out
+     */
+    router.use(function (req, res, next) {
+        if (req.cookie && req.cookie.auth) {
+            redisClient.hget(['auths', req.cookie.auth], function (err, reply) {
+                if (!err && reply) {
+                    req.userId = reply;
+                    next();
+                    return;
+                }
+            });
+        }
+
+        res.status(401).json({
+            cause: "this method need to be authenticated",
+            url: req.originalUrl,
+            method: req.method,
+            params: req.query,
+            body: req.body
+        });
+
+    });
+
+    router.get('/tweets/:userId/:begin/:count', function (req, res, next) {
+
+        var params = req.params;
+
+        async.waterfall(
+            [
+                function (callback) {
+                    redisClient.lget(['tweets:' + params.userId, params.begin, params.begin + (params.count || 10)], callback);
+                },
+
+                function (tweetsIds, callback) {
+                    tweetsIds.forEach(function (tweetId) {
+
+                    });
+                }
+            ],
+            function (err, res) {
+                if (!err) {
+                    res.status(200).json(res);
+                } else {
+                    res.status(404).json(err);
+                }
+            });
+
+
+        var tweetsIdCallback = function (err, tweetsIds) {
+
+        };
+
+        var tweetsContentCallback = function (err, tweets) {
+            if (!err) {
+                res.status(200).json(tweets);
+            } else {
+                res.status(404).json(err);
+            }
+        }
+    });
 };

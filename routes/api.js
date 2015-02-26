@@ -25,7 +25,8 @@ router.use(function (req, res, next) {
         cause: "api's method not found",
         url: req.originalUrl,
         method: req.method,
-        params: req.query
+        params: req.query,
+        body: req.body
     });
 });
 

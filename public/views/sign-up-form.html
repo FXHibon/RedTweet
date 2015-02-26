@@ -1,0 +1,64 @@
+<md-card layout="column">
+
+    <md-toolbar>
+        <h3 class="md-toolbar-tools"><span>Sign Up</span></h3>
+    </md-toolbar>
+
+    <md-card-content>
+
+        <form novalidate name="signUpForm" ng-submit="signUpForm.$valid && submit()">
+
+            <div layout="column">
+                <md-input-container flex>
+                    <label>Name</label>
+                    <input type="text" name="name" ng-model="user.name" required>
+
+                    <div ng-messages="signUpForm.name.$error">
+                        <div ng-message="nameNotAvailable">Username is not available</div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout="column">
+                <md-input-container flex>
+                    <label>Email</label>
+                    <input type="email" name="email" ng-model="user.email" required>
+
+                    <div ng-messages="signUpForm.email.$error">
+                        <div ng-message="emailNotAvailable">Email already exists in our data base</div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout="column">
+                <md-input-container flex>
+                    <label>Password</label>
+                    <input name="password" type="password" ng-model="user.password" required>
+
+                    <div ng-messages="signUpForm.password.$error">
+                        <div ng-message="badPassword">Password does not match</div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout="column">
+                <md-input-container flex>
+                    <label>Password (yes, again)</label>
+                    <input name="passwordBis" type="password" ng-model="user.passwordBis" required>
+
+                    <div ng-messages="signUpForm.passwordBis.$error">
+                        <div ng-message="badPasswordBis">Passwords are not identical</div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout="column">
+                <md-button class="md-raised md-primary">Sign up!</md-button>
+            </div>
+
+            <div ng-show="authenticating" layout="column" layout-align="center center">
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+        </form>
+    </md-card-content>
+</md-card>
