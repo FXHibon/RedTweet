@@ -11,16 +11,12 @@ app.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider
             .when('/sign-in', {
-                templateUrl: '../views/sign-in-form.html',
-                controller: 'SignInController'
-            })
-            .when('/sign-up', {
-                templateUrl: '../views/sign-up-form.html',
-                controller: 'SignUpController'
+                templateUrl: '../views/sign-form.html',
+                controller: 'SignController'
             })
             .when('/home', {
-                templateUrl: '../views/home.html',
-                controller: 'HomeController'
+                templateUrl: '../views/board.html',
+                controller: 'BoardController'
             })
             .otherwise({
                 redirectTo: '/sign-in'

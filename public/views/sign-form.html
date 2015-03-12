@@ -30,6 +30,17 @@
                 </md-input-container>
             </div>
 
+            <div layout="column" ng-show="signUp">
+                <md-input-container flex>
+                    <label>Password</label>
+                    <input name="password" type="password" ng-model="user.password" required>
+
+                    <div ng-messages="signInForm.password.$error">
+                        <div ng-message="badPassword">Password does not match</div>
+                    </div>
+                </md-input-container>
+            </div>
+
             <div layout="column">
                 <md-button class="md-raised md-primary">Enter</md-button>
             </div>
@@ -38,9 +49,9 @@
                 <md-progress-circular md-mode="indeterminate"></md-progress-circular>
             </div>
 
-            <div layout="column">
+            <div layout="column" ng-show="!signUp">
                 <md-input-container flex>
-                    <p>Or sign up in 15 seconds <a href="#/sign-up">here</a></p>
+                    <p>Or sign up in 15 seconds <a ng-click="showSignUp()">here</a></p>
                 </md-input-container>
             </div>
 
