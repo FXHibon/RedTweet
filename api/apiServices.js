@@ -14,7 +14,7 @@
 /**
  * createClient(port, host)
  */
-var redisClient = require('redis').createClient(6379, "192.168.1.23");
+var redisClient = require('redis').createClient(6379, "192.168.248.132");
 var async = require('async');
 var uuid = require('node-uuid');
 var apiDebug = require('debug')('RedTweet:api');
@@ -67,9 +67,9 @@ module.exports.authenticate = function (tmpUser, httpResponse) {
         } else {
             apiDebug("ok: cookie:", cookieVal);
             status = 200;
-            res.cookie('auth', cookieVal);
+            httpResponse.cookie('auth', cookieVal);
         }
-        res.status(status).json(objResponse);
+        httpResponse.status(status).json(objResponse);
     });
 };
 
@@ -78,7 +78,7 @@ module.exports.authenticate = function (tmpUser, httpResponse) {
  * @param user User to record
  * @param resp HTTP Response
  */
-module.exports.suscribe = function (userTmp, resp) {
+module.exports.suscribe = function (userTmp, httpResponse) {
     var user = userTmp;
     var checkUserNameAvailability = function (callback) {
         redisClient.hget(['users'], callback);
@@ -93,9 +93,9 @@ module.exports.suscribe = function (userTmp, resp) {
         ],
         function (err, result) {
             if (!err) {
-                res.status(200).json();
+                httpResponse.status(200).json();
             } else {
-                res.status(400).json({cause: err});
+                httpResponse.status(400).json({cause: err});
             }
         });
 }
