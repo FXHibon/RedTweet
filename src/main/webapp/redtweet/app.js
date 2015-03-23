@@ -1,14 +1,19 @@
-var app = angular.module('RedTweet', ['ngMaterial', 'ngRoute', 'Controllers']);
+(function () {
+    angular
+        .module('RedTweet', [
+            'ngMaterial',
+            'ngRoute',
+            'Controllers'
+        ])
+        .config(appConfig);
 
-app.config(['$mdThemingProvider',
-    function ($mdThemingProvider) {
+    appConfig.$inject = ['$mdThemingProvider', '$routeProvider'];
+
+    function appConfig($mdThemingProvider, $routeProvider) {
+
         $mdThemingProvider.theme('default')
             .primaryPalette('blue');
-    }
-]);
 
-app.config(['$routeProvider',
-    function ($routeProvider) {
         $routeProvider
             .when('/sign-in', {
                 templateUrl: '../views/sign-in-form.html',
@@ -26,4 +31,5 @@ app.config(['$routeProvider',
                 redirectTo: '/sign-in'
             });
     }
-]);
+
+})();
