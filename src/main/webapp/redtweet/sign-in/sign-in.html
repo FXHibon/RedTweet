@@ -1,0 +1,50 @@
+<md-card layout="column">
+
+    <md-toolbar>
+        <h3 class="md-toolbar-tools"><span>Sign In</span></h3>
+    </md-toolbar>
+
+    <md-card-content>
+
+        <form novalidate name="signInForm" ng-submit="signInForm.$valid && submit()">
+
+            <div layout="column">
+                <md-input-container flex>
+                    <label>Name</label>
+                    <input name="name" ng-model="signInCtrl.user.name" required>
+                </md-input-container>
+            </div>
+
+            <div layout="column">
+                <md-input-container flex>
+                    <label>Password</label>
+                    <input name="password" type="password" ng-model="signInCtrl.user.password" required>
+
+                </md-input-container>
+            </div>
+
+            <div layout="column">
+                <md-button class="md-raised md-primary">Enter</md-button>
+            </div>
+
+            <div layout="column">
+                <div ng-messages="signInCtrl.errors">
+                    <div ng-message="unauthorized">
+                        Bad username/password, or unexpected error ...
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="signInCtrl.authenticating" layout="column" layout-align="center center">
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+
+            <!--<div layout="column">-->
+            <!--<md-input-container flex>-->
+            <!--<p>Or sign up in 15 seconds <a href="#/sign-up">here</a></p>-->
+            <!--</md-input-container>-->
+            <!--</div>-->
+
+        </form>
+    </md-card-content>
+</md-card>

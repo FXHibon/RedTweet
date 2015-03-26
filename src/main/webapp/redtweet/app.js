@@ -2,34 +2,28 @@
     angular
         .module('RedTweet', [
             'ngMaterial',
-            'ngRoute',
-            'Controllers'
+            'ui.router',
+            'restangular'
         ])
-        .config(appConfig);
+        .config(themeConfig)
+        .config(routeConfig)
+        .config(restConfig);
 
-    appConfig.$inject = ['$mdThemingProvider', '$routeProvider'];
+    themeConfig.$inject = ['$mdThemingProvider'];
+    routeConfig.$inject = ['$urlRouterProvider'];
+    restConfig.$inject = ['RestangularProvider'];
 
-    function appConfig($mdThemingProvider, $routeProvider) {
-
+    function themeConfig($mdThemingProvider) {
         $mdThemingProvider.theme('default')
             .primaryPalette('blue');
+    }
 
-        $routeProvider
-            .when('/sign-in', {
-                templateUrl: '../views/sign-in-form.html',
-                controller: 'SignInController'
-            })
-            .when('/sign-up', {
-                templateUrl: '../views/sign-up-form.html',
-                controller: 'SignUpController'
-            })
-            .when('/home', {
-                templateUrl: '../views/home.html',
-                controller: 'HomeController'
-            })
-            .otherwise({
-                redirectTo: '/sign-in'
-            });
+    function routeConfig($urlRouterProvider) {
+        $urlRouterProvider.otherwise('/sign-in');
+    }
+
+    function restConfig(RestangularProvider) {
+        RestangularProvider.setBaseUrl('/api/');
     }
 
 })();
