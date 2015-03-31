@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * Created by fx on 23/03/2015.
@@ -25,14 +26,14 @@ public class UserController {
     @RequestMapping(value = "/auth", method = RequestMethod.GET)
     public
     @ResponseBody
-    ResponseEntity<User> auth(@RequestBody User user, HttpServletRequest servletRequest) {
-        if (userService.auth(user)) {
+    ResponseEntity<Map> auth(@RequestBody Map<String, String> user, HttpServletRequest servletRequest) {
+        User userBean = new User(user);
+        if (userService.auth(new User(user))) {
             servletRequest.getSession(true)
                     .setAttribute("user", user);
-            return new ResponseEntity<User>(user, HttpStatus.OK);
+            return new ResponseEntity<Map>(userBean.getMap(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<User>(user, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Map>(userBean.getMap(), HttpStatus.BAD_REQUEST);
         }
     }
-
 }

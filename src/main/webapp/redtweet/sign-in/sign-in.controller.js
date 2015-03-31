@@ -9,18 +9,15 @@
         .module('RedTweet')
         .controller('SignInController', SignInController);
 
-    SignInController.$inject = ['User', '$state', '$rootScope'];
+    SignInController.$inject = ['User', '$state', '$rootScope', '$mdDialog'];
 
-    function SignInController(UserService, $state, $rootScope) {
+    function SignInController(UserService, $state, $rootScope, $mdDialog) {
 
         var me = this;
 
         me.requesting = false;
 
-        me.errors = {};
-
         me.submit = submit;
-
 
         ///////////////////////
 
@@ -34,7 +31,11 @@
                 })
                 .catch(function () {
                     me.requeting = false;
-                    me.errors.unauthorized = true;
+                    $mdDialog.show(
+                        $mdDialog.alert()
+                            .title('Connexion error')
+                            .content('Invalid credentials')
+                            .ok('Ok!'));
                 });
         }
     }

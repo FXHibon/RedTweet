@@ -7,19 +7,19 @@
 
     angular
         .module('RedTweet')
-        .factory('Users', UserService);
+        .factory('User', UserService);
 
     UserService.$inject = ['Restangular'];
 
     function UserService(Restangular) {
 
-        var usersRestClient = Restangular.service('users');
+        var usersRestClient = Restangular.service('auth');
 
         return {
             auth: function (user) {
                 return usersRestClient
-                    .one(user)
-                    .get();
+                    .one()
+                    .get(user);
             }
         }
     }

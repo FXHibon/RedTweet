@@ -6,7 +6,7 @@
 
     <md-card-content>
 
-        <form novalidate name="signInForm" ng-submit="signInForm.$valid && submit()">
+        <form novalidate name="signInForm" ng-submit="signInCtrl.submit()">
 
             <div layout="column">
                 <md-input-container flex>
@@ -19,7 +19,6 @@
                 <md-input-container flex>
                     <label>Password</label>
                     <input name="password" type="password" ng-model="signInCtrl.user.password" required>
-
                 </md-input-container>
             </div>
 
@@ -27,24 +26,9 @@
                 <md-button class="md-raised md-primary">Enter</md-button>
             </div>
 
-            <div layout="column">
-                <div ng-messages="signInCtrl.errors">
-                    <div ng-message="unauthorized">
-                        Bad username/password, or unexpected error ...
-                    </div>
-                </div>
-            </div>
-
-            <div ng-show="signInCtrl.authenticating" layout="column" layout-align="center center">
+            <div ng-show="signInCtrl.requesting" layout="column" layout-align="center center">
                 <md-progress-circular md-mode="indeterminate"></md-progress-circular>
             </div>
-
-            <!--<div layout="column">-->
-            <!--<md-input-container flex>-->
-            <!--<p>Or sign up in 15 seconds <a href="#/sign-up">here</a></p>-->
-            <!--</md-input-container>-->
-            <!--</div>-->
-
         </form>
     </md-card-content>
 </md-card>

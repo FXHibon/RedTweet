@@ -1,58 +1,80 @@
 package fr.epsi.tp.redtweet.bean;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by fx on 23/03/2015.
  */
 public class User {
 
-    public final String FIELD_FIRSTNAME = "first_name";
-    public final String FIELD_LASTNAME = "last_name";
-    public final String FIELD_USERNAME = "user_name";
-    public final String FIELD_PASSWORD = "password";
+    public static final String FIELD_FIRSTNAME = "first_name";
+    public static final String FIELD_LASTNAME = "last_name";
+    public static final String FIELD_USERNAME = "user_name";
+    public static final String FIELD_PASSWORD = "password";
 
-    private String firstName;
-    private String lastName;
-    private String username;
-    private String password;
+    private Map<String, String> map;
 
     public User() {
+        map = new HashMap<String, String>();
     }
 
-    public User(String firstName, String lastName, String username) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.username = username;
+    public Map<String, String> getMap() {
+        return map;
+    }
+
+    public void setMap(Map<String, String> map) {
+        this.map = map;
+    }
+
+    public User(Map<String, String> map) {
+        this.map = map;
     }
 
     public String getFirstName() {
-        return firstName;
+        return map.get(FIELD_FIRSTNAME);
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public User setFirstName(String firstName) {
+        map.put(FIELD_FIRSTNAME, firstName);
+        return this;
     }
 
     public String getLastName() {
-        return lastName;
+        return map.get(FIELD_LASTNAME);
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public User setLastName(String lastName) {
+        map.put(FIELD_LASTNAME, lastName);
+        return this;
     }
 
     public String getUsername() {
-        return username;
+        return map.get(FIELD_USERNAME);
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public User setUsername(String username) {
+        map.put(FIELD_USERNAME, username);
+        return this;
     }
 
     public String getPassword() {
-        return password;
+        return map.get(FIELD_PASSWORD);
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public User setPassword(String password) {
+        map.put(FIELD_PASSWORD, password);
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return getMap().equals(user.getMap());
+
     }
 }

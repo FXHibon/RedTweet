@@ -7,6 +7,5 @@ import fr.epsi.tp.redtweet.bean.User;
  */
 public interface UserService {
 
-
     boolean auth(User user);
 }
