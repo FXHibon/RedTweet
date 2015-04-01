@@ -9,5 +9,7 @@ import java.util.List;
  * Created by fhibon on 01/04/2015.
  */
 public interface TweetDao {
-    List<Tweet> findByOwner(User owner);
+    List<String> getUserTweetsId(User owner);
+
+    Tweet getTweet(String id);
 }

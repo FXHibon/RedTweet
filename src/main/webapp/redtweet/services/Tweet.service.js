@@ -13,7 +13,7 @@
 
     function TweetService(Restangular, $log) {
 
-        var tweetsRestClient = Restangular.service('tweets');
+        var tweetsRestClient = Restangular.service('home_timeline');
 
         return {
             getAll: getAll

@@ -6,6 +6,7 @@ import fr.epsi.tp.redtweet.dao.TweetDao;
 import fr.epsi.tp.redtweet.service.TweetService;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,12 +17,26 @@ public class TweetServiceImpl implements TweetService {
     @Resource
     private TweetDao tweetDao;
 
-    public List<Tweet> getAll(User owner) {
-        tweetDao.findByOwner(owner);
-        return null;
+    public List<Tweet> getUserTimeLine(User ref) {
+        List<Tweet> res;
+        res = new ArrayList<Tweet>();
+        return res;
     }
 
-    public boolean create(Tweet tweet) {
+    public List<Tweet> getUserTweets(User owner) {
+        List<String> ids = tweetDao.getUserTweetsId(owner);
+
+        List<Tweet> results = new ArrayList<Tweet>();
+        for (String id : ids) {
+            results.add(tweetDao.getTweet(id));
+        }
+
+        return results;
+    }
+
+    public void postTweet(Tweet tweet) {
 
     }
+
+
 }

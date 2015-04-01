@@ -1,6 +1,7 @@
 package fr.epsi.tp.redtweet.dao;
 
 import fr.epsi.tp.redtweet.bean.User;
+import fr.epsi.tp.redtweet.dao.helper.DbHelper;
 import fr.epsi.tp.redtweet.dao.impl.UserDaoImpl;
 import org.junit.After;
 import org.junit.Before;
@@ -15,13 +16,16 @@ import static org.junit.Assert.assertThat;
  */
 public class UserDaoTest {
 
-    private UserDao userDao = new UserDaoImpl();
-    private Jedis jedis = new Jedis("localhost");
+    private UserDao userDao;
+    private Jedis jedis;
 
     private User user;
 
     @Before
     public void before() {
+        jedis = DbHelper.getJedis();
+        userDao = new UserDaoImpl();
+
         user = new User();
         user
                 .setFirstName("François-Xavier")
@@ -33,6 +37,11 @@ public class UserDaoTest {
     @After
     public void after() {
         jedis.del("user:" + user.getUsername());
+    }
+
+    @After
+    public void afterClass() {
+        jedis.close();
     }
 
     @Test
@@ -76,7 +85,8 @@ public class UserDaoTest {
         userDao.create(user);
 
         assertThat("should exists", jedis.exists("user:" + user.getUsername()), is(true));
-        userDao.delete(user);
+        boolean delete = userDao.delete(user);
+        assertThat("deletion should be OK", delete, is(true));
         assertThat("should not exists anymore", jedis.exists("user:" + user.getUsername()), is(false));
     }
 }

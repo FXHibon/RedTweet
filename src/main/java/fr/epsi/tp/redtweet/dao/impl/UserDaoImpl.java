@@ -2,6 +2,7 @@ package fr.epsi.tp.redtweet.dao.impl;
 
 import fr.epsi.tp.redtweet.bean.User;
 import fr.epsi.tp.redtweet.dao.UserDao;
+import fr.epsi.tp.redtweet.dao.helper.DbHelper;
 import fr.epsi.tp.redtweet.exception.UserNotFound;
 import redis.clients.jedis.Jedis;
 
@@ -12,11 +13,11 @@ import java.util.Map;
  */
 public class UserDaoImpl implements UserDao {
 
-    private Jedis jedis = new Jedis("localhost");
-
     public boolean create(User user) {
         try {
+            Jedis jedis = DbHelper.getJedis();
             jedis.hmset("user:" + user.getUsername(), user.getMap());
+            jedis.close();
         } catch (Exception e) {
             return false;
         }
@@ -24,8 +25,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     public User read(String userName) throws UserNotFound {
+        Jedis jedis = DbHelper.getJedis();
         Map<String, String> userMap = jedis.hgetAll("user:" + userName);
-
+        jedis.close();
         if (userMap != null && userMap.keySet().size() > 0) {
             return new User(userMap);
         } else {
@@ -35,7 +37,9 @@ public class UserDaoImpl implements UserDao {
 
     public boolean update(User user) {
         try {
+            Jedis jedis = DbHelper.getJedis();
             jedis.hmset("user:" + user.getUsername(), user.getMap());
+            jedis.close();
         } catch (Exception e) {
             return false;
         }
@@ -43,7 +47,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     public boolean delete(User user) {
-        jedis.del("user:" + user.getUsername());
-        return false;
+        try {
+            Jedis jedis = DbHelper.getJedis();
+            jedis.del("user:" + user.getUsername());
+            jedis.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

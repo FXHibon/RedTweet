@@ -22,12 +22,12 @@ public class TweetController {
     @Resource
     private TweetService tweetService;
 
-    @RequestMapping(value = "/tweets", method = RequestMethod.GET)
+    @RequestMapping(value = "/home_timeline", method = RequestMethod.GET)
     public ResponseEntity<List<Tweet>> getTweets(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
         ResponseEntity<List<Tweet>> resp =
                 new ResponseEntity<List<Tweet>>(
-                        tweetService.getAll(user),
+                        tweetService.getUserTimeLine(user),
                         HttpStatus.OK
                 );
         return resp;

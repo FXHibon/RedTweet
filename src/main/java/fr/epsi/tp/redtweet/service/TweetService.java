@@ -10,5 +10,26 @@ import java.util.List;
  */
 public interface TweetService {
 
-    List<Tweet> getAll(User user);
+    /**
+     * Find tweets for "home screen" of ref User
+     *
+     * @param ref
+     * @return
+     */
+    List<Tweet> getUserTimeLine(User ref);
+
+    /**
+     * Find user's tweet
+     *
+     * @param owner
+     * @return
+     */
+    List<Tweet> getUserTweets(User owner);
+
+    /**
+     * Post a simple tweet
+     *
+     * @param tweet
+     */
+    void postTweet(Tweet tweet);
 }
