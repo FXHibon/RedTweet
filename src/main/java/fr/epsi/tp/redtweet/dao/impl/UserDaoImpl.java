@@ -26,7 +26,7 @@ public class UserDaoImpl implements UserDao {
     public User read(String userName) throws UserNotFound {
         Map<String, String> userMap = jedis.hgetAll("user:" + userName);
 
-        if (userMap != null) {
+        if (userMap != null && userMap.keySet().size() > 0) {
             return new User(userMap);
         } else {
             throw new UserNotFound();

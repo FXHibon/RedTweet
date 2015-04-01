@@ -5,9 +5,9 @@ import fr.epsi.tp.redtweet.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -21,14 +21,14 @@ import java.util.Map;
 public class UserController {
 
     @Resource
-    UserService userService;
+    private UserService userService;
 
     @RequestMapping(value = "/auth", method = RequestMethod.GET)
     public
     @ResponseBody
-    ResponseEntity<Map> auth(@RequestBody Map<String, String> user, HttpServletRequest servletRequest) {
+    ResponseEntity<Map> auth(@RequestParam Map<String, String> user, HttpServletRequest servletRequest) {
         User userBean = new User(user);
-        if (userService.auth(new User(user))) {
+        if (userService.auth(userBean)) {
             servletRequest.getSession(true)
                     .setAttribute("user", user);
             return new ResponseEntity<Map>(userBean.getMap(), HttpStatus.OK);

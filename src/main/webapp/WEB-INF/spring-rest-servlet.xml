@@ -9,7 +9,32 @@
     <mvc:annotation-driven/>
     <context:component-scan base-package="fr.epsi.tp.redtweet"/>
 
-    <bean name="userService" id="userService" class="fr.epsi.tp.redtweet.service.impl.UserServiceImpl"/>
-    <bean name="userDao" id="userDao" class="fr.epsi.tp.redtweet.dao.impl.UserDaoImpl"/>
+    <bean id="userService"
+          name="userService"
+          class="fr.epsi.tp.redtweet.service.impl.UserServiceImpl"
+          autowire="byName"
+          scope="singleton">
+    </bean>
+
+    <bean id="userDao"
+          name="userDao"
+          class="fr.epsi.tp.redtweet.dao.impl.UserDaoImpl"
+          autowire="byName"
+          scope="singleton">
+    </bean>
+
+    <bean id="tweetService"
+          name="tweetService"
+          class="fr.epsi.tp.redtweet.service.impl.TweetServiceImpl"
+          autowire="byName"
+          scope="singleton">
+    </bean>
+
+    <bean id="tweetDao"
+          name="tweetDao"
+          class="fr.epsi.tp.redtweet.dao.impl.TweetDaoImpl"
+          autowire="byName"
+          scope="singleton">
+    </bean>
 
 </beans>

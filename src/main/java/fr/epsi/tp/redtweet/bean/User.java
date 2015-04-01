@@ -8,9 +8,9 @@ import java.util.Map;
  */
 public class User {
 
-    public static final String FIELD_FIRSTNAME = "first_name";
-    public static final String FIELD_LASTNAME = "last_name";
-    public static final String FIELD_USERNAME = "user_name";
+    public static final String FIELD_FIRSTNAME = "firstName";
+    public static final String FIELD_LASTNAME = "lastName";
+    public static final String FIELD_USERNAME = "userName";
     public static final String FIELD_PASSWORD = "password";
 
     private Map<String, String> map;
@@ -76,5 +76,12 @@ public class User {
 
         return getMap().equals(user.getMap());
 
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "map=" + map +
+                '}';
     }
 }
