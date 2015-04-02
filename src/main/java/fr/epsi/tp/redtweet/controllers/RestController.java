@@ -55,8 +55,8 @@ public class RestController {
     }
 
     @RequestMapping(value = "/retweet/{tweetid}", method = RequestMethod.POST)
-    public Map<String, Object> retweet(@PathVariable String tweetid) {
-        return null;
+    public Map<String, Object> retweet(@PathVariable String tweetid, HttpServletRequest request) {
+        return redService.retweet((User) request.getSession().getAttribute("user"), tweetid);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)

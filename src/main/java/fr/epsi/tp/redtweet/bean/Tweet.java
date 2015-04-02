@@ -8,6 +8,7 @@ import java.util.Map;
  */
 public class Tweet extends HashMap<String, String>{
 
+    private String FIELD_ID = "id";
     private String FIELD_AUTHOR = "author";
     private String FIELD_CONTENT = "content";
     private String FIELD_CREATED_AT = "createdAt";
@@ -41,5 +42,14 @@ public class Tweet extends HashMap<String, String>{
 
     public String getCreatedAt() {
         return this.get(FIELD_CREATED_AT);
+    }
+
+    public String getId() {
+        return this.get(FIELD_ID);
+    }
+
+    public Tweet setId(String id) {
+        this.put(FIELD_ID, id);
+        return this;
     }
 }

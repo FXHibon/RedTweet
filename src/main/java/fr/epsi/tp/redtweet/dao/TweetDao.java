@@ -4,17 +4,21 @@ import fr.epsi.tp.redtweet.bean.Tweet;
 import fr.epsi.tp.redtweet.bean.User;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by fhibon on 01/04/2015.
  */
 public interface TweetDao {
-    List<String> getUserTweetsId(User owner);
 
-    Tweet getTweet(String id);
+    List<Tweet> getUserTimeLine(User ref);
 
-    Set<String> getTimeLine(User ref, int start, int count);
+    List<Tweet> getRetweets(String userName);
 
-    void create(String username, Tweet tweet);
+    boolean retweet(User user, String id);
+
+    boolean update(Tweet tweet);
+
+    boolean destroy(String tweetId);
+
+    boolean tweet(User user, Tweet tweet);
 }

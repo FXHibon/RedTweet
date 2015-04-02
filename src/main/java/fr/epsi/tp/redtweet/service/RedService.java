@@ -31,10 +31,11 @@ public interface RedService {
     /**
      * Retweet
      *
+     *
      * @param id Id of tweet to be retweeted
      * @return Info message
      */
-    Map<String, Object> retweet(String id);
+    Map<String, Object> retweet(User user, String id);
 
     /**
      * Get connected user timeline

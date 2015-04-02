@@ -22,16 +22,12 @@ public class RedServiceImpl implements RedService {
         return tweetDao.getUserTimeLine(ref);
     }
 
-    public List<Tweet> getRetweets(String userName) {
-        return tweetDao.getRetweets(userName);
-    }
-
-    public Map<String, Object> retweet(String id) {
+    public Map<String, Object> retweet(User user, String id) {
 
         Map<String, Object> map = new HashMap<String, Object>();
 
         String msg;
-        if (tweetDao.retweet(id)) {
+        if (tweetDao.retweet(user, id)) {
             msg = "OK";
         } else {
             msg = "KO";
@@ -42,11 +38,15 @@ public class RedServiceImpl implements RedService {
     }
 
     public List<Tweet> getHomeTimeLine(User user) {
-        return tweetDao.getHomeTimeLine(user);
+        return tweetDao.getUserTimeLine(user);
+    }
+
+    public List<Tweet> getRetweets(String userName) {
+        return tweetDao.getRetweets(userName);
     }
 
     public List<Tweet> getRetweetsOfMe(User user) {
-        return tweetDao.getRetweetsOfMe(user);
+        return this.getRetweets(user.getUsername());
     }
 
     public Map<String, Object> destroy(User user, String tweetId) {

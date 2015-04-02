@@ -4,43 +4,97 @@ import fr.epsi.tp.redtweet.bean.Tweet;
 import fr.epsi.tp.redtweet.bean.User;
 import fr.epsi.tp.redtweet.dao.TweetDao;
 import fr.epsi.tp.redtweet.dao.helper.DbHelper;
+import org.joda.time.DateTime;
 import redis.clients.jedis.Jedis;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Created by Fx on 01/04/2015.
  */
 public class TweetDaoImpl implements TweetDao {
 
-    public List<String> getUserTweetsId(User owner) {
+    public List<Tweet> getUserTimeLine(User ref) {
         Jedis jedis = DbHelper.getJedis();
 
-        List<String> ids = jedis.lrange("user:" + owner.getUsername(), 0, -1);
+        Set<String> ids = jedis.zrange("user:" + ref.getUsername() + ":timeLine", 0, -1);
 
-        jedis.close();
-        return ids;
+        List<Tweet> tweets = new ArrayList<Tweet>();
+
+        for (String id : ids) {
+            tweets.add(new Tweet(jedis.hgetAll("tweet:" + id)));
+        }
+
+        return tweets;
     }
 
-    public Tweet getTweet(String id) {
+    public List<Tweet> getRetweets(String userName) {
         Jedis jedis = DbHelper.getJedis();
 
-        Map<String, String> tweetMap = jedis.hgetAll("tweet:" + id);
+        Set<String> ids = jedis.smembers("user:" + userName + ":retweets");
 
-        jedis.close();
-        return new Tweet(tweetMap);
+        List<Tweet> tweets = new ArrayList<Tweet>();
+
+        for (String id : ids) {
+            tweets.add(new Tweet(jedis.hgetAll("tweet:" + id)));
+        }
+
+        return tweets;
     }
 
-    public Set<String> getTimeLine(User ref, int start, int count) {
-        Jedis jedis = DbHelper.getJedis();
+    public boolean retweet(User user, String id) {
 
-        Set<String> tweetIds = jedis.zrange("user:" + ref.getUsername() + ":timeline", start, count);
-        return tweetIds;
+        try {
+            Jedis jedis = DbHelper.getJedis();
+            jedis.sadd("user:" + user.getUsername() + ":retweets", id);
+            jedis.zadd("user:" + user.getUsername() + ":timeLine", new DateTime().getMillis(), id);
+            jedis.close();
+
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
     }
 
-    public void create(String author, Tweet tweet) {
+    public boolean update(Tweet tweet) {
+        try {
+            Jedis jedis = DbHelper.getJedis();
 
+            jedis.hmset("tweet:" + tweet.getId(), tweet);
+
+            jedis.close();
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+    }
+
+    public boolean destroy(String tweetId) {
+
+        try {
+            Jedis jedis = DbHelper.getJedis();
+            jedis.del("tweet:" + tweetId);
+            jedis.close();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean tweet(User user, Tweet tweet) {
+
+        try {
+            Jedis jedis = DbHelper.getJedis();
+            tweet.setId(UUID.randomUUID().toString());
+            jedis.hmset("tweet:" + tweet.getId(), tweet);
+            jedis.close();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }
