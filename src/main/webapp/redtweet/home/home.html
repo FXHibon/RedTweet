@@ -1,1 +1,6 @@
-<p>Tout plein de <span md-highlight-text="'#tweets'">#tweets</span></p>
+<form ng-submit="homeCtrl.submit()">
+    <md-input-container>
+        <input ng-model="homeCtrl.tweet.content" type="text" placeholder="Tweet something ...">
+        <input type="submit">
+    </md-input-container>
+</form>
