@@ -6,82 +6,51 @@ import java.util.Map;
 /**
  * Created by fx on 23/03/2015.
  */
-public class User {
+public class User extends HashMap<String, String> {
 
     public static final String FIELD_FIRSTNAME = "firstName";
     public static final String FIELD_LASTNAME = "lastName";
     public static final String FIELD_USERNAME = "userName";
     public static final String FIELD_PASSWORD = "password";
 
-    private Map<String, String> map;
-
-    public User() {
-        map = new HashMap<String, String>();
-    }
-
-    public Map<String, String> getMap() {
-        return map;
-    }
-
-    public void setMap(Map<String, String> map) {
-        this.map = map;
-    }
 
     public User(Map<String, String> map) {
-        this.map = map;
+        super(map);
     }
 
     public String getFirstName() {
-        return map.get(FIELD_FIRSTNAME);
+        return this.get(FIELD_FIRSTNAME);
     }
 
     public User setFirstName(String firstName) {
-        map.put(FIELD_FIRSTNAME, firstName);
+        this.put(FIELD_FIRSTNAME, firstName);
         return this;
     }
 
     public String getLastName() {
-        return map.get(FIELD_LASTNAME);
+        return this.get(FIELD_LASTNAME);
     }
 
     public User setLastName(String lastName) {
-        map.put(FIELD_LASTNAME, lastName);
+        this.put(FIELD_LASTNAME, lastName);
         return this;
     }
 
     public String getUsername() {
-        return map.get(FIELD_USERNAME);
+        return this.get(FIELD_USERNAME);
     }
 
     public User setUsername(String username) {
-        map.put(FIELD_USERNAME, username);
+        this.put(FIELD_USERNAME, username);
         return this;
     }
 
     public String getPassword() {
-        return map.get(FIELD_PASSWORD);
+        return this.get(FIELD_PASSWORD);
     }
 
     public User setPassword(String password) {
-        map.put(FIELD_PASSWORD, password);
+        this.put(FIELD_PASSWORD, password);
         return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        return getMap().equals(user.getMap());
-
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "map=" + map +
-                '}';
     }
 }

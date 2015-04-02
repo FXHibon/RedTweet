@@ -3,23 +3,30 @@ package fr.epsi.tp.redtweet.service.impl;
 import fr.epsi.tp.redtweet.bean.Tweet;
 import fr.epsi.tp.redtweet.bean.User;
 import fr.epsi.tp.redtweet.dao.TweetDao;
-import fr.epsi.tp.redtweet.service.TweetService;
+import fr.epsi.tp.redtweet.interfaces.PublicRedService;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by fhibon on 01/04/2015.
  */
-public class TweetServiceImpl implements TweetService {
+public class PublicRedServiceImpl implements PublicRedService {
 
     @Resource
     private TweetDao tweetDao;
 
-    public List<Tweet> getUserTimeLine(User ref) {
-        List<Tweet> res;
-        res = new ArrayList<Tweet>();
+    public List<Tweet> getUserTimeLine(User ref, int start, int count) {
+        List<Tweet> res = new ArrayList<Tweet>();
+
+        Set<String> tweetIds = tweetDao.getTimeLine(ref, start, count);
+
+        for (String tweetId : tweetIds) {
+            res.add(tweetDao.getTweet(tweetId));
+        }
+
         return res;
     }
 
@@ -34,8 +41,8 @@ public class TweetServiceImpl implements TweetService {
         return results;
     }
 
-    public void postTweet(Tweet tweet) {
-
+    public void postTweet(User author, Tweet tweet) {
+        tweetDao.create(author.getUsername(), tweet);
     }
 
 

@@ -25,7 +25,7 @@
 
     <bean id="tweetService"
           name="tweetService"
-          class="fr.epsi.tp.redtweet.service.impl.TweetServiceImpl"
+          class="fr.epsi.tp.redtweet.service.impl.PublicRedServiceImpl"
           autowire="byName"
           scope="singleton">
     </bean>

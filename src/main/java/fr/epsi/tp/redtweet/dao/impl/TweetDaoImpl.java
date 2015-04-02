@@ -8,6 +8,7 @@ import redis.clients.jedis.Jedis;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Fx on 01/04/2015.
@@ -30,5 +31,16 @@ public class TweetDaoImpl implements TweetDao {
 
         jedis.close();
         return new Tweet(tweetMap);
+    }
+
+    public Set<String> getTimeLine(User ref, int start, int count) {
+        Jedis jedis = DbHelper.getJedis();
+
+        Set<String> tweetIds = jedis.zrange("user:" + ref.getUsername() + ":timeline", start, count);
+        return tweetIds;
+    }
+
+    public void create(String author, Tweet tweet) {
+
     }
 }
