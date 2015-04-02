@@ -13,6 +13,8 @@ public class Tweet extends HashMap<String, String>{
     private String FIELD_CONTENT = "content";
     private String FIELD_CREATED_AT = "createdAt";
 
+    public Tweet() {}
+
     public Tweet(Map<String, String> tweetMap) {
         super(tweetMap);
     }

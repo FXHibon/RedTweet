@@ -13,6 +13,8 @@ public class User extends HashMap<String, String> {
     public static final String FIELD_USERNAME = "userName";
     public static final String FIELD_PASSWORD = "password";
 
+    public User() {
+    }
 
     public User(Map<String, String> map) {
         super(map);

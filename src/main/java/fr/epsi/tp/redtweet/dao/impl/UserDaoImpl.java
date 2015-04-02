@@ -16,7 +16,7 @@ public class UserDaoImpl implements UserDao {
     public boolean create(User user) {
         try {
             Jedis jedis = DbHelper.getJedis();
-            jedis.hmset("user:" + user.getUsername(), user.getMap());
+            jedis.hmset("user:" + user.getUsername(), user);
             jedis.close();
         } catch (Exception e) {
             return false;
@@ -38,7 +38,7 @@ public class UserDaoImpl implements UserDao {
     public boolean update(User user) {
         try {
             Jedis jedis = DbHelper.getJedis();
-            jedis.hmset("user:" + user.getUsername(), user.getMap());
+            jedis.hmset("user:" + user.getUsername(), user);
             jedis.close();
         } catch (Exception e) {
             return false;
