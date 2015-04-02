@@ -7,5 +7,11 @@ import fr.epsi.tp.redtweet.bean.User;
  */
 public interface UserService {
 
+    /**
+     * Authenticate given user
+     *
+     * @param user
+     * @return
+     */
     boolean auth(User user);
 }

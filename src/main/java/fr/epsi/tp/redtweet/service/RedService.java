@@ -10,13 +10,14 @@ import java.util.Map;
  * Created by fhibon on 02/04/2015.
  */
 public interface RedService {
+
     /**
      * Get user time line
      *
      * @param ref User to get the timeline
      * @return Timeline of the user
      */
-    List<Tweet> getUserTimeLine(Map<String, String> ref);
+    List<Tweet> getUserTimeLine(User ref);
 
     /**
      * Get retweets of given user
@@ -59,16 +60,17 @@ public interface RedService {
     /**
      * Update the given tweet
      *
-     * @param tweet
-     * @return
+     * @param tweet Tweet to be updated
+     * @return Info message
      */
     Map<String, Object> update(Tweet tweet, User user);
 
     /**
-     * Authenticate given user
+     * Post a single tweet
      *
-     * @param user User to authenticate
-     * @return
+     * @param ref Tweet's author
+     * @param tweet Tweet to be created
+     * @return Info message
      */
-    Map<String, Object> auth(User user);
+    Map<String, Object> tweet(User ref, Tweet tweet);
 }

@@ -24,6 +24,11 @@ public class RestController {
     @Resource
     private RedService redService;
 
+    @RequestMapping(value = "/tweet", method = RequestMethod.POST)
+    public Map<String, Object> tweet(@RequestBody Map<String, String> tweetMap, HttpServletRequest request) {
+        return redService.tweet((User) request.getSession().getAttribute("user"), new Tweet(tweetMap));
+    }
+
     @RequestMapping(value = "/user_timeline", method = RequestMethod.GET)
     public List<Tweet> getUserTimeLine(@RequestBody Map<String, String> ref) {
         return redService.getUserTimeLine(new User(ref));
@@ -57,10 +62,5 @@ public class RestController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Map<String, Object> update(@RequestBody Map<String, String> tweet, HttpServletRequest request) {
         return redService.update(new Tweet(tweet), (User) request.getSession().getAttribute("user"));
-    }
-
-    @RequestMapping(value = "/auht", method = RequestMethod.GET)
-    public Map<String, Object> auth(@RequestBody Map<String, String> user) {
-        return redService.auth(new User(user));
     }
 }
