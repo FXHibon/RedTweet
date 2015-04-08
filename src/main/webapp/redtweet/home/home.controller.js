@@ -11,7 +11,7 @@
 
     HomeController.$inject = ['Tweet', '$state', '$rootScope', '$log'];
 
-    function HomeController(Tweet, $state, $rootScope) {
+    function HomeController(Tweet, $state, $rootScope, $log) {
 
         var me = this;
 
@@ -19,19 +19,28 @@
 
         me.submit = submit;
 
-        fetchTweets();
+        me.user = $rootScope.user;
+        // Init tweets list
+        Tweet.getList()
+            .then(function (tweets) {
+                me.tweets = tweets;
+            })
+            .catch(function (reason) {
+                $log.error("unexpected error: ", reason);
+            });
 
         ///////////////////
 
-        function fetchTweets() {
-            Tweet.getAll()
-                .then(function (tweets) {
-                    me.tweets = tweets;
-                });
-        }
-
         function submit() {
-            $log.info("submit");
+            $log.info("submitting ", me.tweet);
+            Tweet.post(me.tweet)
+                .then(function (tweet) {
+                    $log.info("post OK");
+                    me.tweets.push(tweet);
+                })
+                .catch(function (reason) {
+                    $log.info("post KO", reason);
+                });
         }
 
 

@@ -22,8 +22,8 @@ public class RestController {
     @Resource
     private RedService redService;
 
-    @RequestMapping(value = "/tweet", method = RequestMethod.POST)
-    public Map<String, Object> tweet(@RequestBody Map<String, String> tweetMap, HttpServletRequest request) {
+    @RequestMapping(value = "/home_timeline", method = RequestMethod.POST)
+    public Map<String, String> tweet(@RequestBody Map<String, String> tweetMap, HttpServletRequest request) {
         return redService.tweet((User) request.getSession().getAttribute("user"), new Tweet(tweetMap));
     }
 

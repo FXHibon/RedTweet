@@ -82,19 +82,18 @@ public class RedServiceImpl implements RedService {
         return map;
     }
 
-    public Map<String, Object> tweet(User user, Tweet tweet) {
+    public Map<String, String> tweet(User user, Tweet tweet) {
 
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, String> map = new HashMap<String, String>();
 
         String msg;
-        if (tweetDao.tweet(user, tweet)) {
-            msg = "OK";
-        } else {
+        Tweet creation = tweetDao.tweet(user, tweet);
+        if (creation == null) {
             msg = "KO";
+            map.put("msg", msg);
+            return map;
+        } else {
+            return creation;
         }
-
-        map.put("msg", msg);
-
-        return map;
     }
 }

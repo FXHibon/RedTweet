@@ -1,15 +1,28 @@
-<md-card>
-    <md-card-content>
-        <form name="tweet-form" layout-align="center center" layout="row"
-              ng-submit="tweet-form.$valid && homeCtrl.submit()">
-            <md-input-container>
-                <label>Post a tweet</label>
-                <input ng-model="homeCtrl.tweet.content" type="text" required>
-            </md-input-container>
-            <md-input-container>
-                <md-button class="md-raised md-primary" type="submit">Submit</md-button>
-            </md-input-container>
+<md-content>
+    <md-card>
+        <md-card-content>
+            <form name="tweet-form" layout-align="center center" layout="row"
+                  ng-submit="homeCtrl.submit()">
+                <md-input-container>
+                    <label>Post a tweet</label>
+                    <input ng-model="homeCtrl.tweet.content" type="text" required>
+                </md-input-container>
+                <md-input-container>
+                    <md-button class="md-raised md-primary" type="submit">Submit</md-button>
+                </md-input-container>
 
-        </form>
-    </md-card-content>
-</md-card>
+            </form>
+        </md-card-content>
+    </md-card>
+</md-content>
+<md-divider md-inset></md-divider>
+<md-content layout-fill layout="column" layout-align="center center">
+    <md-card layout-fill ng-repeat="tweet in homeCtrl.tweets | orderBy:'-createdAt'">
+        <span>{{ tweet.author }}</span>
+        <md-card-content>
+            <span>{{ tweet.content }}</span>
+            <span am-time-ago="tweet.createdAt"></span>
+        </md-card-content>
+
+    </md-card>
+</md-content>

@@ -73,5 +73,5 @@ public interface RedService {
      * @param tweet Tweet to be created
      * @return Info message
      */
-    Map<String, Object> tweet(User ref, Tweet tweet);
+    Map<String, String> tweet(User ref, Tweet tweet);
 }

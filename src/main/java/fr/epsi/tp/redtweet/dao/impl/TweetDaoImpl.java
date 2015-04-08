@@ -20,14 +20,14 @@ public class TweetDaoImpl implements TweetDao {
     public List<Tweet> getUserTimeLine(User ref) {
         Jedis jedis = DbHelper.getJedis();
 
-        Set<String> ids = jedis.zrange("user:" + ref.getUsername() + ":timeLine", 0, -1);
+        Set<String> ids = jedis.zrange("timeLine:" + ref.getUsername(), 0, -1);
 
         List<Tweet> tweets = new ArrayList<Tweet>();
 
         for (String id : ids) {
             tweets.add(new Tweet(jedis.hgetAll("tweet:" + id)));
         }
-
+        jedis.close();
         return tweets;
     }
 
@@ -41,7 +41,7 @@ public class TweetDaoImpl implements TweetDao {
         for (String id : ids) {
             tweets.add(new Tweet(jedis.hgetAll("tweet:" + id)));
         }
-
+        jedis.close();
         return tweets;
     }
 
@@ -85,16 +85,22 @@ public class TweetDaoImpl implements TweetDao {
         return true;
     }
 
-    public boolean tweet(User user, Tweet tweet) {
+    public Tweet tweet(User user, Tweet tweet) {
 
         try {
             Jedis jedis = DbHelper.getJedis();
-            tweet.setId(UUID.randomUUID().toString());
+
+            DateTime now = new DateTime();
+            String uuid = UUID.randomUUID().toString();
+            tweet.setId(uuid);
+            tweet.setAuthor(user.getUsername());
+            tweet.setCreatedAt(now.toString());
             jedis.hmset("tweet:" + tweet.getId(), tweet);
+            jedis.zadd("timeLine:" + user.getUsername(), now.toDate().getTime(), uuid);
             jedis.close();
         } catch (Exception e) {
-            return false;
+            return null;
         }
-        return true;
+        return tweet;
     }
 }

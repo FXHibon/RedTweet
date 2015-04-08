@@ -20,5 +20,5 @@ public interface TweetDao {
 
     boolean destroy(String tweetId);
 
-    boolean tweet(User user, Tweet tweet);
+    Tweet tweet(User user, Tweet tweet);
 }

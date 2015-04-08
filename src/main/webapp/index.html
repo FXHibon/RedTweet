@@ -20,6 +20,8 @@
     <script src="lib/angular-messages/angular-messages.js"></script>
     <script src="lib/angular-resource/angular-resource.js"></script>
     <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="lib/moment/moment.js"></script>
+    <script src="lib/angular-moment/angular-moment.js"></script>
 
     <!-- App -->
     <script src="redtweet/app.js"></script>
@@ -33,16 +35,14 @@
     <script src="redtweet/services/User.service.js"></script>
     <script src="redtweet/services/Tweet.service.js"></script>
 
+    <script src="redtweet/toolbar/toolbar.controller.js"></script>
+
 </head>
 <body ng-app="RedTweet">
 
-<md-toolbar>
-    <h2 class="md-toolbar-tools">
-        <span>Red Tweet</span>
-    </h2>
-</md-toolbar>
+<ng-include src="'redtweet/toolbar/toolbar.html'"></ng-include>
 
-<md-content ui-view layout="row" layout-align="center center"></md-content>
+<md-content ui-view layout="column" layout-align="center center"></md-content>
 
 </body>
 </html>

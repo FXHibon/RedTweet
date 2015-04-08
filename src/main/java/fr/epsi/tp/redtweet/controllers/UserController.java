@@ -27,6 +27,7 @@ public class UserController {
     public
     @ResponseBody
     ResponseEntity<Map> auth(@RequestParam Map<String, String> user, HttpServletRequest servletRequest) {
+
         User userBean = new User(user);
         if (userService.auth(userBean)) {
             servletRequest.getSession(true)
@@ -34,6 +35,16 @@ public class UserController {
             return new ResponseEntity<Map>(userBean, HttpStatus.OK);
         } else {
             return new ResponseEntity<Map>(userBean, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/refresh", method = RequestMethod.GET)
+    public ResponseEntity<User> refresh(HttpServletRequest request) {
+        User user = (User) request.getSession(true).getAttribute("user");
+        if (user != null) {
+            return new ResponseEntity<User>(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
         }
     }
 }

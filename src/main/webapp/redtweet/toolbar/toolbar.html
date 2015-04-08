@@ -1,0 +1,6 @@
+<md-toolbar ng-controller="ToolbarController as toolbarCtrl">
+    <h2 class="md-toolbar-tools">
+        <span>Red Tweet</span>
+        <span ng-show="toolbarCtrl.isAuthenticated()">&nbsp;- {{ toolbarCtrl.root.user.userName }}</span>
+    </h2>
+</md-toolbar>

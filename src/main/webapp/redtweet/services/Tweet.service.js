@@ -9,18 +9,10 @@
         .module('RedTweet')
         .factory('Tweet', TweetService);
 
-    TweetService.$inject = ['Restangular', '$log'];
+    TweetService.$inject = ['Restangular'];
 
-    function TweetService(Restangular, $log) {
+    function TweetService(Restangular) {
+        return Restangular.service('home_timeline');
 
-        var tweetsRestClient = Restangular.service('home_timeline');
-
-        return {
-            getAll: getAll
-        };
-
-        function getAll() {
-            return tweetsRestClient.getList();
-        }
     }
 })();
