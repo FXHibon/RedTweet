@@ -9,13 +9,16 @@
         .module('RedTweet')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['Tweet', '$state', '$rootScope'];
+    HomeController.$inject = ['Tweet', '$state', '$rootScope', '$log'];
 
     function HomeController(Tweet, $state, $rootScope) {
 
         var me = this;
 
         me.tweets = [];
+
+        me.submit = submit;
+
         fetchTweets();
 
         ///////////////////
@@ -25,6 +28,10 @@
                 .then(function (tweets) {
                     me.tweets = tweets;
                 });
+        }
+
+        function submit() {
+            $log.info("submit");
         }
 
 

@@ -4,10 +4,7 @@ import fr.epsi.tp.redtweet.bean.Tweet;
 import fr.epsi.tp.redtweet.bean.User;
 import fr.epsi.tp.redtweet.service.RedService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +16,7 @@ import java.util.Map;
  * Simply expose the TweetService as a REST api
  */
 @Controller
+@ResponseBody
 public class RestController {
 
     @Resource

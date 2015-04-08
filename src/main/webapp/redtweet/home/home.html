@@ -1,6 +1,15 @@
-<form ng-submit="homeCtrl.submit()">
-    <md-input-container>
-        <input ng-model="homeCtrl.tweet.content" type="text" placeholder="Tweet something ...">
-        <input type="submit">
-    </md-input-container>
-</form>
+<md-card>
+    <md-card-content>
+        <form name="tweet-form" layout-align="center center" layout="row"
+              ng-submit="tweet-form.$valid && homeCtrl.submit()">
+            <md-input-container>
+                <label>Post a tweet</label>
+                <input ng-model="homeCtrl.tweet.content" type="text" required>
+            </md-input-container>
+            <md-input-container>
+                <md-button class="md-raised md-primary" type="submit">Submit</md-button>
+            </md-input-container>
+
+        </form>
+    </md-card-content>
+</md-card>

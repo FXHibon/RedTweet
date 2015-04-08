@@ -28,20 +28,17 @@ public class ApiFilter implements Filter {
 
         logger.info("API access: " + request.getPathInfo());
 
+        HttpSession session = request.getSession();
         if (request.getPathInfo().equals("/auth")) {
             chain.doFilter(req, resp);
-        }
-
-        HttpSession session = request.getSession();
-
+        } else
         // Not connected ? Then you get 401 UNAUTHORIZED
         if (session != null && session.getAttribute("user") != null) {
             chain.doFilter(req, resp);
         } else {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            chain.doFilter(req, resp);
         }
-
-        chain.doFilter(req, resp);
     }
 
     public void init(FilterConfig config) throws ServletException {

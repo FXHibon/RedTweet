@@ -37,10 +37,6 @@ public class UserDaoTest {
     @After
     public void after() {
         jedis.del("user:" + user.getUsername());
-    }
-
-    @After
-    public void afterClass() {
         jedis.close();
     }
 

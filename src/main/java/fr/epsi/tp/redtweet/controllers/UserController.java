@@ -30,7 +30,7 @@ public class UserController {
         User userBean = new User(user);
         if (userService.auth(userBean)) {
             servletRequest.getSession(true)
-                    .setAttribute("user", user);
+                    .setAttribute("user", userBean);
             return new ResponseEntity<Map>(userBean, HttpStatus.OK);
         } else {
             return new ResponseEntity<Map>(userBean, HttpStatus.BAD_REQUEST);

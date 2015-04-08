@@ -3,7 +3,8 @@
         .module('RedTweet', [
             'ngMaterial',
             'ui.router',
-            'restangular'
+            'restangular',
+            'ngMessages'
         ])
         .config(themeConfig)
         .config(routeConfig)
