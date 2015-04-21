@@ -44,13 +44,22 @@
      * @param $log
      */
     function bootstrap($http, $rootScope, $state, $log) {
-        $http.get('/api/refresh')
-            .success(function (user) {
-                $rootScope.user = user;
-            })
-            .error(function () {
-                $state.go("sign-in");
-            });
+
+
+        $rootScope.$on("$stateChangeStart", function () {
+            refresh();
+        });
+
+        function refresh() {
+            $http.get('/api/refresh')
+                .success(function (user) {
+                    $rootScope.user = user;
+                })
+                .error(function () {
+                    $state.go("sign-in");
+                });
+        }
     }
+
 
 })();
