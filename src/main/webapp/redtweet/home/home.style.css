@@ -1,0 +1,10 @@
+.md-avatar {
+    border-radius: 100%;
+    border: 1px solid #ddd;
+    width: 48px;
+}
+
+.tweet-created-at {
+    font-style: italic;
+    color: #c8c8c8;
+}

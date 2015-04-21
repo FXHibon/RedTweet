@@ -14,15 +14,28 @@
             </form>
         </md-card-content>
     </md-card>
-</md-content>
-<md-divider md-inset></md-divider>
-<md-content layout-fill layout="column" layout-align="center center">
-    <md-card layout-fill ng-repeat="tweet in homeCtrl.tweets | orderBy:'-createdAt'">
-        <span>{{ tweet.author }}</span>
-        <md-card-content>
-            <span>{{ tweet.content }}</span>
-            <span am-time-ago="tweet.createdAt"></span>
-        </md-card-content>
 
-    </md-card>
+    <md-list>
+        <md-list-item ng-repeat="tweet in homeCtrl.tweets | orderBy:'-createdAt'">
+            <md-card layout="column" flex>
+
+                <div layout="row" layout-margin>
+                    <div flex>
+                        <img alt="user-avatar" src="redtweet/resources/avatar-01.svg" class="md-avatar"/>
+                    </div>
+                    <div>
+                        <md-subheader><h2>{{ tweet.author }}</h2></md-subheader>
+                    </div>
+                </div>
+                <md-card-content>
+                    <div class="md-list-item-text"><p>{{ tweet.content }}</p></div>
+                </md-card-content>
+                <div layout="row" layout-margin layout-align="end center" class="tweet-created-at">{{ tweet.createdAt |
+                    amTimeAgo}}
+                </div>
+            </md-card>
+
+        </md-list-item>
+    </md-list>
+
 </md-content>

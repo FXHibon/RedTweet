@@ -20,6 +20,7 @@ import java.util.Map;
 @Controller
 public class UserController {
 
+    public static final String USER = "user";
     @Resource
     private UserService userService;
 
@@ -31,7 +32,7 @@ public class UserController {
         User userBean = new User(user);
         if (userService.auth(userBean)) {
             servletRequest.getSession(true)
-                    .setAttribute("user", userBean);
+                    .setAttribute(USER, userBean);
             return new ResponseEntity<Map>(userBean, HttpStatus.OK);
         } else {
             return new ResponseEntity<Map>(userBean, HttpStatus.BAD_REQUEST);
@@ -40,11 +41,22 @@ public class UserController {
 
     @RequestMapping(value = "/refresh", method = RequestMethod.GET)
     public ResponseEntity<User> refresh(HttpServletRequest request) {
-        User user = (User) request.getSession(true).getAttribute("user");
+        User user = (User) request.getSession(true).getAttribute(USER);
         if (user != null) {
             return new ResponseEntity<User>(user, HttpStatus.OK);
         } else {
             return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public ResponseEntity logout(HttpServletRequest request) {
+        try {
+            request.getSession(true).removeAttribute(USER);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
     }
 }

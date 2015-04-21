@@ -9,9 +9,9 @@
         .module('RedTweet')
         .controller('ToolbarController', ToolbarController);
 
-    ToolbarController.$inject = ['$state', '$rootScope', '$log'];
+    ToolbarController.$inject = ['$state', '$rootScope', '$log', 'User'];
 
-    function ToolbarController($state, $rootScope, $log) {
+    function ToolbarController($state, $rootScope, $log, User) {
 
         var me = this;
 
@@ -19,10 +19,22 @@
 
         me.root = $rootScope;
 
+        me.logout = logout;
+
         /////////////////////////////////////
 
         function isAuthenticated() {
             return $rootScope.user && $rootScope.user !== {};
+        }
+
+        function logout() {
+            User.logout()
+                .then(function () {
+                    $state.go("sign-in");
+                })
+                .catch(function (reason) {
+                    $log("error:", reason);
+                });
         }
     }
 })();

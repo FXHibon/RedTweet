@@ -8,7 +8,8 @@
             'ui.router',
             'restangular',
             'ngMessages',
-            'angularMoment'
+            'angularMoment',
+            'ngMdIcons'
         ])
         .config(themeConfig)
         .config(routeConfig)
@@ -43,12 +44,12 @@
      * @param $log
      */
     function bootstrap($http, $rootScope, $state, $log) {
-        $http.get('/refresh')
+        $http.get('/api/refresh')
             .success(function (user) {
                 $rootScope.user = user;
             })
             .error(function () {
-                $log.debug("TODO => should be redirected to 'sign-in'");
+                $state.go("sign-in");
             });
     }
 

@@ -1,6 +1,13 @@
-<md-toolbar ng-controller="ToolbarController as toolbarCtrl">
-    <h2 class="md-toolbar-tools">
-        <span>Red Tweet</span>
-        <span ng-show="toolbarCtrl.isAuthenticated()">&nbsp;- {{ toolbarCtrl.root.user.userName }}</span>
-    </h2>
+<md-toolbar ng-controller="ToolbarController as toolbarCtrl" layout="row">
+    <div layout="row" layout-align="start center" flex>
+        <h2 class="md-toolbar-tools">
+            <span>Red Tweet</span>
+            <span ng-show="toolbarCtrl.isAuthenticated()">&nbsp;- {{ toolbarCtrl.root.user.userName }}</span>
+        </h2>
+    </div>
+    <md-button ng-click="toolbarCtrl.logout()" layout="row" layout-align="end end"
+               class="md-raised md-button md-default-theme md-fab">
+        <ng-md-icon icon="input" style="fill: rgb(33,150,243)" size="36px" layout="row"
+                    layout-align="center center"></ng-md-icon>
+    </md-button>
 </md-toolbar>

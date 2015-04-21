@@ -14,12 +14,18 @@
     function UserService(Restangular) {
 
         var usersRestClient = Restangular.service('auth');
+        var logoutRestClient = Restangular.service('logout');
 
         return {
             auth: function (user) {
                 return usersRestClient
                     .one()
                     .get(user);
+            },
+            logout: function () {
+                return logoutRestClient
+                    .one()
+                    .get();
             }
         }
     }
