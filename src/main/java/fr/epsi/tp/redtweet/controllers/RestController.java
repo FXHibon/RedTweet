@@ -29,10 +29,14 @@ public class RestController {
     }
 
     @RequestMapping(value = "/user_timeline", method = RequestMethod.GET)
-    public List<Tweet> getUserTimeLine(@RequestParam String userName) {
+    public Map getUserTimeLine(@RequestParam String userName) {
         User user = new User()
                 .setUsername(userName);
-        return redService.getUserTimeLine(user);
+
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("tweets", redService.getUserTimeLine(user));
+        result.putAll(redService.search(user.getUsername()));
+        return result;
     }
 
     @RequestMapping(value = "/home_timeline", method = RequestMethod.GET)
@@ -66,7 +70,7 @@ public class RestController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public List<Map> search(@RequestParam String query) {
+    public Map search(@RequestParam String query) {
         return redService.search(query);
     }
 }

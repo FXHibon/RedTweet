@@ -105,11 +105,12 @@ public class RedServiceImpl implements RedService {
         }
     }
 
-    public List<Map> search(String query) {
-        List<Map> map = new ArrayList<Map>();
+    public Map search(String query) {
+        Map map = new HashMap();
 
         try {
-            map.add(userDao.read("FXHibon"));
+            User read = userDao.read(query);
+            map.put("user", read);
         } catch (UserNotFound userNotFound) {
             logger.error(userNotFound);
 

@@ -1,6 +1,8 @@
 <md-content>
 
-    <md-list>
+    <rt-user-card user="profileCtrl.user"></rt-user-card>
+
+    <md-list layout-align="center center" layout="column">
         <md-list-item ng-repeat="tweet in profileCtrl.tweets | orderBy:'-createdAt'">
             <rt-tweet tweet="tweet"></rt-tweet>
         </md-list-item>

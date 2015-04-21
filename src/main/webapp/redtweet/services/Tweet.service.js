@@ -30,7 +30,9 @@
         }
 
         function getUserTimeLine(user) {
-            return userTimeline.getList({userName: user});
+            return userTimeline
+                .one()
+                .get({userName: user});
         }
     }
 })();

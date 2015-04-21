@@ -40,7 +40,9 @@
             $log.info(query);
             var deferred = $q.defer();
 
-            Search.getList({query: query})
+            Search
+                .one()
+                .get({query: query})
                 .then(function (result) {
                     deferred.resolve(result);
                 })

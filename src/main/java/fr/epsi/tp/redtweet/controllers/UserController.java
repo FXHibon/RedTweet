@@ -21,6 +21,7 @@ import java.util.Map;
 public class UserController {
 
     public static final String USER = "user";
+
     @Resource
     private UserService userService;
 
@@ -57,6 +58,5 @@ public class UserController {
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-
     }
 }

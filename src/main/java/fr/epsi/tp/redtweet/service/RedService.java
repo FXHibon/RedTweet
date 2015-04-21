@@ -81,5 +81,5 @@ public interface RedService {
      * @param query Query to be used for search
      * @return Results
      */
-    List<Map> search(String query);
+    Map search(String query);
 }

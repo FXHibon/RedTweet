@@ -8,7 +8,8 @@
     angular
         .module('RedTweet')
         .directive("rtTweetForm", rtTweetForm)
-        .directive("rtTweet", rtTweet);
+        .directive("rtTweet", rtTweet)
+        .directive("rtUserCard", rtUserCard);
 
     function rtTweetForm() {
         return {
@@ -27,6 +28,16 @@
                 tweet: '='
             }
         };
+    }
+
+    function rtUserCard() {
+        return {
+            restrict: 'E',
+            templateUrl: "redtweet/components/user-card/user-card.html",
+            scope: {
+                user: '='
+            }
+        }
     }
 
 })();

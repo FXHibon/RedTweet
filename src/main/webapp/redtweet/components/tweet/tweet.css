@@ -1,7 +1,7 @@
 .md-avatar {
     border-radius: 100%;
     border: 1px solid #ddd;
-    width: 48px;
+    width: 68px;
 }
 
 .tweet-created-at {
@@ -15,5 +15,28 @@
 
 .tweet md-card-content {
     padding-top: 5px;
-    padding-bottom: 0px
+    padding-bottom: 0;
+}
+
+.tweet ng-md-icon {
+    margin-right: 18px;
+    fill: rgb(189, 189, 189);
+}
+
+.tweet ng-md-icon:hover {
+    fill: rgb(33, 150, 243);
+}
+
+.tweet a {
+    text-decoration: none;
+    color: black;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.tweet a:hover {
+    color: rgb(33, 150, 243);
 }

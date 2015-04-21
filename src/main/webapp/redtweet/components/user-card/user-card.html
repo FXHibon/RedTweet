@@ -1,0 +1,26 @@
+<md-card>
+
+    <div layout="row" flex>
+        <img class="avatar-profile" ng-src="redtweet/resources/avatar-01.svg"/>
+    </div>
+
+    <md-card-content>
+        <div layout="row">
+            <div layout="column" flex>
+                <p>User name: {{ user.userName }}</p>
+
+                <p>First name: {{ user.firstName }}</p>
+
+                <p>Last name: {{ user.lastName }}</p>
+            </div>
+
+            <div layout="column" flex>
+                <p>Followers: {{ user.followers || 0 }}</p>
+
+                <p>Following: {{ user.following || 0 }}</p>
+
+                <p>Tweets: {{ user.tweets || 0 }}</p>
+            </div>
+        </div>
+    </md-card-content>
+</md-card>

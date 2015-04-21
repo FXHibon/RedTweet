@@ -7,11 +7,11 @@
 
     angular
         .module('RedTweet')
-        .factory('Search', TweetService);
+        .factory('Search', SearchService);
 
-    TweetService.$inject = ['Restangular'];
+    SearchService.$inject = ['Restangular'];
 
-    function TweetService(Restangular) {
+    function SearchService(Restangular) {
         return Restangular.service('search');
 
     }
