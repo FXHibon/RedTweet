@@ -1,40 +1,10 @@
 <md-content>
-    <md-card>
-        <md-card-content>
-            <form name="tweet-form" layout-align="center center" layout="row"
-                  ng-submit="homeCtrl.submit()">
-                <md-input-container>
-                    <label>Post a tweet</label>
-                    <input ng-model="homeCtrl.tweet.content" type="text" required>
-                </md-input-container>
-                <md-input-container>
-                    <md-button class="md-raised md-primary" type="submit">Submit</md-button>
-                </md-input-container>
 
-            </form>
-        </md-card-content>
-    </md-card>
+    <rt-tweet-form></rt-tweet-form>
 
     <md-list>
         <md-list-item ng-repeat="tweet in homeCtrl.tweets | orderBy:'-createdAt'">
-            <md-card layout="column" flex>
-
-                <div layout="row" layout-margin>
-                    <div flex>
-                        <img alt="user-avatar" src="redtweet/resources/avatar-01.svg" class="md-avatar"/>
-                    </div>
-                    <div>
-                        <md-subheader><h2>{{ tweet.author }}</h2></md-subheader>
-                    </div>
-                </div>
-                <md-card-content>
-                    <div class="md-list-item-text"><p>{{ tweet.content }}</p></div>
-                </md-card-content>
-                <div layout="row" layout-margin layout-align="end center" class="tweet-created-at">{{ tweet.createdAt |
-                    amTimeAgo}}
-                </div>
-            </md-card>
-
+            <rt-tweet tweet="tweet"></rt-tweet>
         </md-list-item>
     </md-list>
 

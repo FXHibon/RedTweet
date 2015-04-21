@@ -17,9 +17,13 @@
 
         me.tweets = [];
 
-        me.submit = submit;
-
         me.user = $rootScope.user;
+
+        $rootScope.$on("addTweet", function (event, tweet) {
+            $log.info(event, tweet);
+            me.tweets.push(tweet);
+        });
+
         // Init tweets list
         Tweet.getList()
             .then(function (tweets) {
@@ -28,21 +32,6 @@
             .catch(function (reason) {
                 $log.error("unexpected error: ", reason);
             });
-
-        ///////////////////
-
-        function submit() {
-            $log.info("submitting ", me.tweet);
-            Tweet.post(me.tweet)
-                .then(function (tweet) {
-                    $log.info("post OK");
-                    me.tweets.push(tweet);
-                })
-                .catch(function (reason) {
-                    $log.info("post KO", reason);
-                });
-        }
-
 
     }
 })();

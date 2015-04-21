@@ -25,9 +25,11 @@
 
         <div flex></div>
 
-        <md-button ng-click="toolbarCtrl.logout()" layout="row" layout-align="end end"
+        <md-button ng-click="toolbarCtrl.logout()"
+                   layout="row" layout-align="end end"
                    class="md-raised md-button md-default-theme md-fab"
-                   ng-show="toolbarCtrl.isAuthenticated()">
+                   ng-show="toolbarCtrl.isAuthenticated()"
+                   aria-label="Logout">
             <ng-md-icon icon="input" style="fill: rgb(33,150,243)" size="36px" layout="row"
                         layout-align="center center"></ng-md-icon>
         </md-button>

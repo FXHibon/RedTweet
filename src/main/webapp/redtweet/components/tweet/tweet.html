@@ -1,0 +1,18 @@
+<md-card layout="column" flex>
+
+    <div layout="row" layout-margin>
+        <div flex>
+            <img alt="user-avatar" src="redtweet/resources/avatar-01.svg" class="md-avatar"/>
+        </div>
+        <div>
+            <md-subheader><h2>{{ tweet.author }}</h2></md-subheader>
+        </div>
+    </div>
+    <md-card-content>
+        <div class="md-list-item-text"><p>{{ tweet.content }}</p></div>
+        <div layout="row" layout-margin layout-align="end center" class="tweet-created-at">
+            {{ tweet.createdAt | amTimeAgo}}
+        </div>
+    </md-card-content>
+
+</md-card>
