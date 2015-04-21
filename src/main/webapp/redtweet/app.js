@@ -9,7 +9,8 @@
             'restangular',
             'ngMessages',
             'angularMoment',
-            'ngMdIcons'
+            'ngMdIcons',
+            'ngResource'
         ])
         .config(themeConfig)
         .config(routeConfig)

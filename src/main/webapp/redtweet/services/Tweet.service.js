@@ -9,16 +9,20 @@
         .module('RedTweet')
         .factory('Tweet', TweetService);
 
-    TweetService.$inject = ['Restangular'];
+    TweetService.$inject = ['Restangular', '$resource', '$log'];
 
-    function TweetService(Restangular) {
+    function TweetService(Restangular, $resource, $log) {
         var userTimeline = Restangular.service("user_timeline");
         var homeTimeline = Restangular.service("home_timeline");
+
+        var retweetResource = $resource("api/retweet/:id");
 
         return {
             getHomeTimeLine: getHomeTimeLine,
             submit: submit,
-            getUserTimeLine: getUserTimeLine
+            getUserTimeLine: getUserTimeLine,
+            retweet: retweet,
+            favorite: favorite
         };
 
         function getHomeTimeLine() {
@@ -33,6 +37,14 @@
             return userTimeline
                 .one()
                 .get({userName: user});
+        }
+
+        function retweet(tweet) {
+            retweetResource.save({id: tweet.id}, tweet);
+        }
+
+        function favorite(tweet) {
+            $log.info("asking favorite for ", tweet);
         }
     }
 })();

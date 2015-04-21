@@ -29,13 +29,13 @@
             <div layout="row" layout-margin flex>
                 <div layout="row" layout-align="start end" flex>
 
-                    <ng-md-icon icon="reply_all" size="26">
+                    <ng-md-icon icon="reply_all" size="26" ng-click="retweet()">
                         <md-tooltip>
                             Retweet
                         </md-tooltip>
                     </ng-md-icon>
 
-                    <ng-md-icon icon="favorite_outline" size="26">
+                    <ng-md-icon icon="favorite_outline" size="26" ng-click="favorite()">
                         <md-tooltip>
                             Favorite
                         </md-tooltip>
@@ -48,38 +48,6 @@
             </div>
         </div>
 
-
-        <!--<div layout="row" layout-margin>-->
-        <!--<div flex>-->
-        <!--<a ng-href="#/profile/{{ tweet.author }}">-->
-        <!--<img alt="user-avatar" src="redtweet/resources/avatar-01.svg" class="md-avatar"/>-->
-        <!--</a>-->
-        <!--</div>-->
-        <!--<div>-->
-        <!--<md-subheader><h2>{{ tweet.author }}</h2></md-subheader>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="md-list-item-text"><p>{{ tweet.content }}</p></div>-->
-        <!--<div layout="row" layout-margin class="tweet-created-at">-->
-        <!--<div layout="row" layout-align="start end" flex>-->
-
-        <!--<ng-md-icon icon="reply_all" style="fill: rgb(33,150,243)" size="26">-->
-        <!--<md-tooltip>-->
-        <!--Retweet-->
-        <!--</md-tooltip>-->
-        <!--</ng-md-icon>-->
-
-        <!--<ng-md-icon icon="favorite_outline" style="fill: rgb(33,150,243)" size="26">-->
-        <!--<md-tooltip>-->
-        <!--Favorite-->
-        <!--</md-tooltip>-->
-        <!--</ng-md-icon>-->
-
-        <!--</div>-->
-        <!--<div layout="row" layout-align="center end">-->
-        <!--{{ tweet.createdAt | amTimeAgo}}-->
-        <!--</div>-->
-        <!--</div>-->
     </md-card-content>
 
 </md-card>

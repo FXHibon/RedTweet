@@ -50,7 +50,7 @@ public class TweetDaoImpl implements TweetDao {
         try {
             Jedis jedis = DbHelper.getJedis();
             jedis.sadd("user:" + user.getUsername() + ":retweets", id);
-            jedis.zadd("user:" + user.getUsername() + ":timeLine", new DateTime().getMillis(), id);
+            jedis.zadd("timeLine:" + user.getUsername(), new DateTime().getMillis(), id);
             jedis.close();
 
         } catch (Exception e) {

@@ -26,7 +26,9 @@
             templateUrl: "redtweet/components/tweet/tweet.html",
             scope: {
                 tweet: '='
-            }
+            },
+            controller: "TweetController",
+            controllerAs: "tweetCtrl"
         };
     }
 

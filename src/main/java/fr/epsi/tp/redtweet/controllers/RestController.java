@@ -59,9 +59,9 @@ public class RestController {
         return redService.destroy((User) request.getSession().getAttribute("user"), tweetId);
     }
 
-    @RequestMapping(value = "/retweet/{tweetid}", method = RequestMethod.POST)
-    public Map<String, Object> retweet(@PathVariable String tweetid, HttpServletRequest request) {
-        return redService.retweet((User) request.getSession().getAttribute("user"), tweetid);
+    @RequestMapping(value = "/retweet/{id}", method = RequestMethod.POST)
+    public Map<String, Object> retweet(@PathVariable String id, HttpServletRequest request) {
+        return redService.retweet((User) request.getSession().getAttribute("user"), id);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
