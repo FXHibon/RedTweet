@@ -74,4 +74,12 @@ public interface RedService {
      * @return Info message
      */
     Map<String, String> tweet(User ref, Tweet tweet);
+
+    /**
+     * Search for people, tags ...
+     *
+     * @param query Query to be used for search
+     * @return Results
+     */
+    List<Map> search(String query);
 }

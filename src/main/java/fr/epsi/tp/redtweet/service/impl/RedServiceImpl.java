@@ -3,9 +3,13 @@ package fr.epsi.tp.redtweet.service.impl;
 import fr.epsi.tp.redtweet.bean.Tweet;
 import fr.epsi.tp.redtweet.bean.User;
 import fr.epsi.tp.redtweet.dao.TweetDao;
+import fr.epsi.tp.redtweet.dao.UserDao;
+import fr.epsi.tp.redtweet.exception.UserNotFound;
 import fr.epsi.tp.redtweet.service.RedService;
+import org.apache.log4j.Logger;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +19,12 @@ import java.util.Map;
  */
 public class RedServiceImpl implements RedService {
 
+    private final Logger logger = Logger.getLogger(RedServiceImpl.class);
     @Resource
     private TweetDao tweetDao;
+
+    @Resource
+    private UserDao userDao;
 
     public List<Tweet> getUserTimeLine(User ref) {
         return tweetDao.getUserTimeLine(ref);
@@ -95,5 +103,18 @@ public class RedServiceImpl implements RedService {
         } else {
             return creation;
         }
+    }
+
+    public List<Map> search(String query) {
+        List<Map> map = new ArrayList<Map>();
+
+        try {
+            map.add(userDao.read("FXHibon"));
+        } catch (UserNotFound userNotFound) {
+            logger.error(userNotFound);
+
+        }
+
+        return map;
     }
 }

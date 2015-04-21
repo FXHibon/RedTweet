@@ -61,4 +61,9 @@ public class RestController {
     public Map<String, Object> update(@RequestBody Map<String, String> tweet, HttpServletRequest request) {
         return redService.update(new Tweet(tweet), (User) request.getSession().getAttribute("user"));
     }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public List<Map> search(@RequestParam String query) {
+        return redService.search(query);
+    }
 }

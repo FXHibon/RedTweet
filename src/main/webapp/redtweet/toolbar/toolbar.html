@@ -1,13 +1,35 @@
 <md-toolbar ng-controller="ToolbarController as toolbarCtrl" layout="row">
-    <div layout="row" layout-align="start center" flex>
-        <h2 class="md-toolbar-tools">
-            <span>Red Tweet</span>
-            <span ng-show="toolbarCtrl.isAuthenticated()">&nbsp;- {{ toolbarCtrl.root.user.userName }}</span>
-        </h2>
+    <div class="md-toolbar-tools">
+        <div layout="row" layout-align="start center">
+            <h2 class="md-toolbar-tools">
+                <span>Red Tweet</span>
+                <span ng-show="toolbarCtrl.isAuthenticated()">&nbsp;- {{ toolbarCtrl.root.user.userName }}</span>
+            </h2>
+        </div>
+
+        <div flex></div>
+
+        <div layout="row" flex layout-align="center center" ng-show="toolbarCtrl.isAuthenticated()">
+            <md-autocomplete
+                    layout-fill
+                    md-selected-item="toolbarCtrl.selectedItem"
+                    md-search-text-change="toolbarCtrl.searchTextChange(toolbarCtrl.searchText)"
+                    md-search-text="toolbarCtrl.searchText"
+                    md-selected-item-change="toolbarCtrl.selectedItemChange(item)"
+                    md-items="item in toolbarCtrl.querySearch(toolbarCtrl.searchText)"
+                    md-item-text="item.userName"
+                    placeholder="Search for people, tags ...">
+                <span md-highlight-text="toolbarCtrl.searchText" md-highlight-flags="^i">{{item.userName}} </span>
+            </md-autocomplete>
+        </div>
+
+        <div flex></div>
+
+        <md-button ng-click="toolbarCtrl.logout()" layout="row" layout-align="end end"
+                   class="md-raised md-button md-default-theme md-fab"
+                   ng-show="toolbarCtrl.isAuthenticated()">
+            <ng-md-icon icon="input" style="fill: rgb(33,150,243)" size="36px" layout="row"
+                        layout-align="center center"></ng-md-icon>
+        </md-button>
     </div>
-    <md-button ng-click="toolbarCtrl.logout()" layout="row" layout-align="end end"
-               class="md-raised md-button md-default-theme md-fab">
-        <ng-md-icon icon="input" style="fill: rgb(33,150,243)" size="36px" layout="row"
-                    layout-align="center center"></ng-md-icon>
-    </md-button>
 </md-toolbar>
