@@ -1,8 +1,10 @@
-<md-card layout="column" flex>
+<md-card layout="column" flex class="tweet">
 
     <div layout="row" layout-margin>
         <div flex>
-            <img alt="user-avatar" src="redtweet/resources/avatar-01.svg" class="md-avatar"/>
+            <a ng-href="#/profile/{{ tweet.author }}">
+                <img alt="user-avatar" src="redtweet/resources/avatar-01.svg" class="md-avatar"/>
+            </a>
         </div>
         <div>
             <md-subheader><h2>{{ tweet.author }}</h2></md-subheader>

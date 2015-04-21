@@ -1,0 +1,9 @@
+<md-content>
+
+    <md-list>
+        <md-list-item ng-repeat="tweet in profileCtrl.tweets | orderBy:'-createdAt'">
+            <rt-tweet tweet="tweet"></rt-tweet>
+        </md-list-item>
+    </md-list>
+
+</md-content>

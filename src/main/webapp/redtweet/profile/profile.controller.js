@@ -7,25 +7,19 @@
 
     angular
         .module('RedTweet')
-        .controller('HomeController', HomeController);
+        .controller('ProfileController', ProfileController);
 
-    HomeController.$inject = ['Tweet', '$state', '$rootScope', '$log'];
+    ProfileController.$inject = ['Tweet', '$state', '$rootScope', '$log'];
 
-    function HomeController(Tweet, $state, $rootScope, $log) {
+    function ProfileController(Tweet, $state, $rootScope, $log) {
 
         var me = this;
 
         me.tweets = [];
 
-        me.user = $rootScope.user;
-
-        $rootScope.$on("addTweet", function (event, tweet) {
-            $log.info(event, tweet);
-            me.tweets.push(tweet);
-        });
 
         // Init tweets list
-        Tweet.getHomeTimeLine()
+        Tweet.getUserTimeLine($state.params.userName)
             .then(function (tweets) {
                 me.tweets = tweets;
             })

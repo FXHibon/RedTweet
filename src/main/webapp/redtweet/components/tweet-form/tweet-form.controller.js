@@ -21,7 +21,7 @@
 
         function submit() {
             $log.info("submitting ", me.tweet);
-            Tweet.post(me.tweet)
+            Tweet.submit(me.tweet)
                 .then(function (tweet) {
                     $log.info("post OK");
                     me.tweet = {};

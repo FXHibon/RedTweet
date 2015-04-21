@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,8 +29,10 @@ public class RestController {
     }
 
     @RequestMapping(value = "/user_timeline", method = RequestMethod.GET)
-    public List<Tweet> getUserTimeLine(@RequestBody Map<String, String> ref) {
-        return redService.getUserTimeLine(new User(ref));
+    public List<Tweet> getUserTimeLine(@RequestParam String userName) {
+        User user = new User()
+                .setUsername(userName);
+        return redService.getUserTimeLine(user);
     }
 
     @RequestMapping(value = "/home_timeline", method = RequestMethod.GET)

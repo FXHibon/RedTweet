@@ -12,7 +12,25 @@
     TweetService.$inject = ['Restangular'];
 
     function TweetService(Restangular) {
-        return Restangular.service('home_timeline');
+        var userTimeline = Restangular.service("user_timeline");
+        var homeTimeline = Restangular.service("home_timeline");
 
+        return {
+            getHomeTimeLine: getHomeTimeLine,
+            submit: submit,
+            getUserTimeLine: getUserTimeLine
+        };
+
+        function getHomeTimeLine() {
+            return homeTimeline.getList();
+        }
+
+        function submit(tweet) {
+            return homeTimeline.post(tweet);
+        }
+
+        function getUserTimeLine(user) {
+            return userTimeline.getList({userName: user});
+        }
     }
 })();

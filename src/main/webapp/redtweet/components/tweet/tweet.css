@@ -8,3 +8,12 @@
     font-style: italic;
     color: #c8c8c8;
 }
+
+.tweet {
+    min-width: 420px;
+}
+
+.tweet md-card-content {
+    padding-top: 5px;
+    padding-bottom: 0px
+}

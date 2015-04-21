@@ -27,7 +27,7 @@
     }
 
     function routeConfig($urlRouterProvider) {
-        $urlRouterProvider.otherwise('/sign-in');
+        $urlRouterProvider.otherwise('/home');
     }
 
     function restConfig(RestangularProvider) {
