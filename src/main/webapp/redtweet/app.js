@@ -45,7 +45,7 @@
         });
 
         function refresh() {
-            $http.get('/api/refresh')
+            $http.get('api/refresh')
                 .success(function (user) {
                     $rootScope.user = user;
                 })
