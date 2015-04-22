@@ -1,7 +1,16 @@
 .user-card ng-md-icon {
     fill: rgb(189, 189, 189);
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
 }
 
 .user-card ng-md-icon:hover {
+    fill: rgb(21, 104, 243);
+}
+
+.user-card .highlight {
     fill: rgb(33, 150, 243);
 }

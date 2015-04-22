@@ -38,7 +38,7 @@ public class RestController {
         result.put("tweets", redService.getUserTimeLine(user, caller));
 
         // Add user information for profile view
-        result.put("user", redService.search(user.getUsername(), caller));
+        result.put("user", redService.search(caller, user.getUsername()));
         return result;
     }
 
@@ -73,8 +73,9 @@ public class RestController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public Map search(@RequestParam String query) {
-        return redService.search(query);
+    public Map search(@RequestParam String query, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        return redService.search(user, query);
     }
 
     @RequestMapping(value = "/follow/{userName}", method = RequestMethod.GET)

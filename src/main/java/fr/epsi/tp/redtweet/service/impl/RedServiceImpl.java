@@ -105,30 +105,20 @@ public class RedServiceImpl implements RedService {
         }
     }
 
-    public Map search(String query) {
+    public Map search(User caller, String query) {
         Map map = new HashMap();
 
         try {
-            User read = userDao.read(query);
-            map.put("user", read);
+            map = userDao.read(query);
+            if (userDao.isUserFollowing(caller.getUsername(), query)) {
+                map.put("followed", "true");
+            }
         } catch (UserNotFound userNotFound) {
             logger.error(userNotFound);
 
         }
 
         return map;
-    }
-
-    public Map search(String query, User caller) {
-        Map res;
-        try {
-            res = userDao.read(query);
-            res.put("followed", userDao.isUserFollowing(caller.getUsername(), query));
-        } catch (UserNotFound userNotFound) {
-            res = new HashMap();
-            res.put("msg", userNotFound.getMessage());
-        }
-        return res;
     }
 
     public void follow(User caller, User target) {

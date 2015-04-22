@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
         logger.info("authenticating user:" + user);
         try {
             User userTmp = userDao.read(user.getUsername());
-            return userTmp.getPassword().equals(userTmp.getPassword());
+            return !userTmp.getPassword().equals("") && userTmp.getPassword().equals(userTmp.getPassword());
         } catch (UserNotFound e) {
 
         }

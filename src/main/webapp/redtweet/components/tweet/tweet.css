@@ -18,17 +18,25 @@
     padding-bottom: 0;
 }
 
+ng-md-icon {
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
 .tweet ng-md-icon {
     margin-right: 18px;
     fill: rgb(189, 189, 189);
 }
 
-.highlight {
-    fill: rgb(209, 132, 63);
+.tweet .highlight, .highlight {
+    fill: rgb(33, 150, 243);
 }
 
 .tweet ng-md-icon:hover {
-    fill: rgb(33, 150, 243);
+    fill: rgb(21, 104, 243);
 }
 
 .tweet a {

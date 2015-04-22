@@ -7,7 +7,7 @@ import redis.clients.jedis.Jedis;
  */
 public class DbHelper {
 
-    public static final String redisHost = "82.225.225.138";
+    public static final String redisHost = "192.168.1.23";
     private static final String auth = "|h!i1j_~!=+~~-M!-.R!.=kzOl.bQ+uuI.f_!.N.+Q;H=M;t.!F=H!|.~|:_X.-|X|;r|UR+^C._m5^~e*.%|^%y^=_!rs-po~=1j^!+zf*^+q%KCZ|A|~!Ftf|=;!=+hf=9%;K*uM=+.!~_|t%**G";
 
     /**

@@ -38,6 +38,7 @@
             } else {
                 Tweet.favorite($scope.tweet)
                     .then(function () {
+                        console.log("validate");
                         $scope.tweet.favorite = true;
                     });
             }

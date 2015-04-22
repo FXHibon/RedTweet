@@ -34,6 +34,7 @@ public class UserController {
         if (userService.auth(userBean)) {
             servletRequest.getSession(true)
                     .setAttribute(USER, userBean);
+
             return new ResponseEntity<Map>(userBean, HttpStatus.OK);
         } else {
             return new ResponseEntity<Map>(userBean, HttpStatus.BAD_REQUEST);

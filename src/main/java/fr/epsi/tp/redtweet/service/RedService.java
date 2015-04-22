@@ -80,16 +80,7 @@ public interface RedService {
      * @param query Query to be used for search
      * @return Results
      */
-    Map search(String query);
-
-    /**
-     * Search for people, tags ...
-     *
-     * @param query  Query to be used for search
-     * @param caller
-     * @return Results
-     */
-    Map search(String query, User caller);
+    Map search(User caller, String query);
 
     /**
      * Make caller user to follo target

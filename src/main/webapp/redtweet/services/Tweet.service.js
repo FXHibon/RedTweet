@@ -9,12 +9,12 @@
         .module('RedTweet')
         .factory('Tweet', TweetService);
 
-    TweetService.$inject = ['Restangular', '$resource', '$log'];
+    TweetService.$inject = ['$resource', '$log'];
 
-    function TweetService(Restangular, $resource, $log) {
-        var userTimeline = Restangular.service("user_timeline");
-        var homeTimeline = Restangular.service("home_timeline");
+    function TweetService($resource, $log) {
 
+        var homeTimeLineResource = $resource('api/home_timeline');
+        var userTimeLineResource = $resource('api/user_timeline');
         var retweetResource = $resource("api/retweet/:id");
 
         return {
@@ -28,17 +28,21 @@
         };
 
         function getHomeTimeLine() {
-            return homeTimeline.getList();
+            return homeTimeLineResource
+                .query()
+                .$promise;
         }
 
         function submit(tweet) {
-            return homeTimeline.post(tweet);
+            return homeTimeLineResource
+                .post(tweet)
+                .$promise;
         }
 
         function getUserTimeLine(user) {
-            return userTimeline
-                .one()
-                .get({userName: user});
+            return userTimeLineResource
+                .get({userName: user})
+                .$promise;
         }
 
         function retweet(tweet) {

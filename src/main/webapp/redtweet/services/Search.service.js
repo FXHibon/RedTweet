@@ -9,10 +9,10 @@
         .module('RedTweet')
         .factory('Search', SearchService);
 
-    SearchService.$inject = ['Restangular'];
+    SearchService.$inject = ['$resource'];
 
-    function SearchService(Restangular) {
-        return Restangular.service('search');
+    function SearchService($resource) {
+        return $resource('api/search');
 
     }
 })();

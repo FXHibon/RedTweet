@@ -6,7 +6,6 @@
         .module('RedTweet', [
             'ngMaterial',
             'ui.router',
-            'restangular',
             'ngMessages',
             'angularMoment',
             'ngMdIcons',
@@ -14,12 +13,10 @@
         ])
         .config(themeConfig)
         .config(routeConfig)
-        .config(restConfig)
         .run(bootstrap);
 
     themeConfig.$inject = ['$mdThemingProvider'];
     routeConfig.$inject = ['$urlRouterProvider'];
-    restConfig.$inject = ['RestangularProvider'];
     bootstrap.$inject = ['$http', '$rootScope', '$state', '$log'];
 
     function themeConfig($mdThemingProvider) {
@@ -29,10 +26,6 @@
 
     function routeConfig($urlRouterProvider) {
         $urlRouterProvider.otherwise('/home');
-    }
-
-    function restConfig(RestangularProvider) {
-        RestangularProvider.setBaseUrl('/api/');
     }
 
     /**
