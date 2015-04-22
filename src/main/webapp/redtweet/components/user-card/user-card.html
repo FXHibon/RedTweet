@@ -1,4 +1,4 @@
-<md-card>
+<md-card class="user-card">
 
     <div layout="row" flex>
         <img class="avatar-profile" ng-src="redtweet/resources/avatar-01.svg"/>
@@ -21,6 +21,15 @@
 
                 <p>Tweets: {{ user.tweets || 0 }}</p>
             </div>
+        </div>
+
+        <div layout="row">
+            <ng-md-icon icon="person_add" size="36" ng-show="userCardCtrl.user.userName !== user.userName"
+                        ng-click="userCardCtrl.follow()">
+                <md-tooltip>
+                    Follow
+                </md-tooltip>
+            </ng-md-icon>
         </div>
     </md-card-content>
 </md-card>

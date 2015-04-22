@@ -82,4 +82,12 @@ public interface RedService {
      * @return Results
      */
     Map search(String query);
+
+    /**
+     * Make caller user to follo target
+     *
+     * @param caller
+     * @param target
+     */
+    void follow(User caller, User target);
 }

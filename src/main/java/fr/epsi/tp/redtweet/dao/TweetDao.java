@@ -18,7 +18,9 @@ public interface TweetDao {
 
     boolean update(Tweet tweet);
 
-    boolean destroy(String tweetId);
+    boolean destroy(String userName, String tweetId);
 
     Tweet tweet(User user, Tweet tweet);
+
+    void follow(String callerId, String targetId);
 }

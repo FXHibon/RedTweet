@@ -18,6 +18,7 @@
         var retweetResource = $resource("api/retweet/:id");
 
         return {
+            remove: remove,
             getHomeTimeLine: getHomeTimeLine,
             submit: submit,
             getUserTimeLine: getUserTimeLine,
@@ -45,6 +46,11 @@
 
         function favorite(tweet) {
             $log.info("asking favorite for ", tweet);
+        }
+
+        function remove(tweet) {
+            return $resource('api/destroy/:id')
+                .save({id: tweet.id}, tweet);
         }
     }
 })();

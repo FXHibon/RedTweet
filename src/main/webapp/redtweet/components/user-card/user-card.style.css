@@ -1,0 +1,7 @@
+.user-card ng-md-icon {
+    fill: rgb(189, 189, 189);
+}
+
+.user-card ng-md-icon:hover {
+    fill: rgb(33, 150, 243);
+}

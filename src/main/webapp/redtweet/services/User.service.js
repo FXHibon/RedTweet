@@ -9,12 +9,13 @@
         .module('RedTweet')
         .factory('User', UserService);
 
-    UserService.$inject = ['Restangular', '$state', '$rootScope'];
+    UserService.$inject = ['Restangular', '$state', '$rootScope', '$resource'];
 
-    function UserService(Restangular, $state, $rootScope) {
+    function UserService(Restangular, $state, $rootScope, $resource) {
 
         var usersRestClient = Restangular.service('auth');
         var logoutRestClient = Restangular.service('logout');
+        var followResource = $resource("api/follow/:id");
 
         return {
             auth: function (user) {
@@ -30,6 +31,9 @@
                         delete $rootScope.user;
                         $state.go("sign-in");
                     });
+            },
+            follow: function (userName) {
+                followResource.get({id: userName});
             }
         }
     }

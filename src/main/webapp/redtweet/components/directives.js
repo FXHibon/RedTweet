@@ -38,7 +38,9 @@
             templateUrl: "redtweet/components/user-card/user-card.html",
             scope: {
                 user: '='
-            }
+            },
+            controller: "UserCardController",
+            controllerAs: "userCardCtrl"
         }
     }
 

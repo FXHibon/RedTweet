@@ -27,8 +27,12 @@ public class UserDaoImpl implements UserDao {
     public User read(String userName) throws UserNotFound {
         Jedis jedis = DbHelper.getJedis();
         Map<String, String> userMap = jedis.hgetAll("user:" + userName);
+        userMap.put("tweets", jedis.scard("user:" + userName + ":tweets").toString());
+        userMap.put("retweets", jedis.scard("user:" + userName + ":retweets").toString());
+        userMap.put("following", jedis.scard("user:" + userName + ":following").toString());
+        userMap.put("followers", jedis.scard("user:" + userName + ":followers").toString());
         jedis.close();
-        if (userMap != null && userMap.keySet().size() > 0) {
+        if (userMap.keySet().size() > 0) {
             return new User(userMap);
         } else {
             throw new UserNotFound();

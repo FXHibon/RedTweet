@@ -49,6 +49,7 @@ public class TweetDaoImpl implements TweetDao {
 
         try {
             Jedis jedis = DbHelper.getJedis();
+            jedis.sadd("user:" + user.getUsername() + ":tweets", id);
             jedis.sadd("user:" + user.getUsername() + ":retweets", id);
             jedis.zadd("timeLine:" + user.getUsername(), new DateTime().getMillis(), id);
             jedis.close();
@@ -73,11 +74,17 @@ public class TweetDaoImpl implements TweetDao {
         return false;
     }
 
-    public boolean destroy(String tweetId) {
+    public boolean destroy(String userName, String tweetId) {
 
         try {
             Jedis jedis = DbHelper.getJedis();
-            jedis.del("tweet:" + tweetId);
+
+            if (jedis.hgetAll("tweet:" + tweetId).get("author").equals(userName)) {
+                jedis.del("tweet:" + tweetId);
+                jedis.srem("user:" + userName + ":tweets", tweetId);
+                jedis.zrem("timeLine:" + userName, tweetId);
+            }
+
             jedis.close();
         } catch (Exception e) {
             return false;
@@ -97,10 +104,31 @@ public class TweetDaoImpl implements TweetDao {
             tweet.setCreatedAt(now.toString());
             jedis.hmset("tweet:" + tweet.getId(), tweet);
             jedis.zadd("timeLine:" + user.getUsername(), now.toDate().getTime(), uuid);
+            jedis.sadd("user:" + user.getUsername() + ":tweets", uuid);
+
+            Set<String> smembers = jedis.smembers("user:" + user.getUsername() + ":followers");
+
+            for (String follower : smembers) {
+                jedis.zadd("timeLine:" + follower, now.toDate().getTime(), uuid);
+            }
+
             jedis.close();
         } catch (Exception e) {
             return null;
         }
         return tweet;
+    }
+
+    public void follow(String callerId, String targetId) {
+        try {
+            Jedis jedis = DbHelper.getJedis();
+            jedis.sadd("user:" + targetId + ":followers", callerId);
+            jedis.sadd("user:" + callerId + ":following", targetId);
+
+            jedis.zunionstore("timeLine:" + callerId, "timeLine:" + callerId, "user:" + targetId + ":tweets");
+
+            jedis.close();
+        } catch (Exception e) {
+        }
     }
 }

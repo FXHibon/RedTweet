@@ -3,6 +3,7 @@ package fr.epsi.tp.redtweet.controllers;
 import fr.epsi.tp.redtweet.bean.Tweet;
 import fr.epsi.tp.redtweet.bean.User;
 import fr.epsi.tp.redtweet.service.RedService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,5 +73,11 @@ public class RestController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public Map search(@RequestParam String query) {
         return redService.search(query);
+    }
+
+    @RequestMapping(value = "/follow/{userName}", method = RequestMethod.GET)
+    public void follow(@PathVariable String userName, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        redService.follow(user, new User().setUsername(userName));
     }
 }

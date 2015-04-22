@@ -9,12 +9,14 @@
         .module('RedTweet')
         .controller('TweetController', TweetController);
 
-    TweetController.$inject = ['Tweet', '$scope'];
+    TweetController.$inject = ['Tweet', '$scope', '$rootScope'];
 
-    function TweetController(Tweet, $scope) {
+    function TweetController(Tweet, $scope, $rootScope) {
 
         $scope.retweet = retweet;
         $scope.favorite = favorite;
+        $scope.user = $rootScope.user;
+        $scope.delete = deleteTweet;
 
         /////////////////////////////////////
 
@@ -26,5 +28,13 @@
         function favorite() {
             console.log("favorite ", $scope.tweet);
         }
+
+        function deleteTweet() {
+            Tweet.remove($scope.tweet)
+                .success(function () {
+                    // TODO delete tweet from client list
+                });
+        }
     }
 })();
+        

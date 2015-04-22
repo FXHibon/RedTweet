@@ -63,7 +63,7 @@ public class RedServiceImpl implements RedService {
 
         // TODO Check rights
         String msg;
-        if (tweetDao.destroy(tweetId)) {
+        if (tweetDao.destroy(user.getUsername(), tweetId)) {
             msg = "OK";
         } else {
             msg = "KO";
@@ -117,5 +117,11 @@ public class RedServiceImpl implements RedService {
         }
 
         return map;
+    }
+
+    public void follow(User caller, User target) {
+        if (!caller.getUsername().equals(target.getUsername())) {
+            tweetDao.follow(caller.getUsername(), target.getUsername());
+        }
     }
 }
