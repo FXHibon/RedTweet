@@ -19,6 +19,12 @@
 
         me.user = $rootScope.user;
 
+        $rootScope.$on('deleteTweet', function (event, tweetId) {
+            me.tweets = me.tweets.filter(function (item) {
+                return (item.id !== tweetId);
+            })
+        });
+
         $rootScope.$on("addTweet", function (event, tweet) {
             $log.info(event, tweet);
             me.tweets.push(tweet);

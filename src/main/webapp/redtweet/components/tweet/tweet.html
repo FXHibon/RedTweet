@@ -30,13 +30,14 @@
                 <div layout="row" layout-align="start end" flex>
 
                     <ng-md-icon ng-show="tweet.author !== user.userName" icon="reply_all" size="26"
-                                ng-click="retweet()">
+                                ng-click="retweet()" ng-class="{highlight: tweet.retweeted}">
                         <md-tooltip>
                             Retweet
                         </md-tooltip>
                     </ng-md-icon>
 
-                    <ng-md-icon icon="favorite_outline" size="26" ng-click="favorite()">
+                    <ng-md-icon icon="favorite_outline" size="26" ng-click="favorite()"
+                                ng-class="{highlight: tweet.favorite}">
                         <md-tooltip>
                             Favorite
                         </md-tooltip>

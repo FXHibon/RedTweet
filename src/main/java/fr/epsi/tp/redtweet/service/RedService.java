@@ -17,7 +17,7 @@ public interface RedService {
      * @param ref User to get the timeline
      * @return Timeline of the user
      */
-    List<Tweet> getUserTimeLine(User ref);
+    List<Tweet> getUserTimeLine(User ref, User caller);
 
     /**
      * Get retweets of given user
@@ -30,7 +30,6 @@ public interface RedService {
 
     /**
      * Retweet
-     *
      *
      * @param id Id of tweet to be retweeted
      * @return Info message
@@ -69,7 +68,7 @@ public interface RedService {
     /**
      * Post a single tweet
      *
-     * @param ref Tweet's author
+     * @param ref   Tweet's author
      * @param tweet Tweet to be created
      * @return Info message
      */
@@ -84,10 +83,35 @@ public interface RedService {
     Map search(String query);
 
     /**
+     * Search for people, tags ...
+     *
+     * @param query  Query to be used for search
+     * @param caller
+     * @return Results
+     */
+    Map search(String query, User caller);
+
+    /**
      * Make caller user to follo target
      *
      * @param caller
      * @param target
      */
     void follow(User caller, User target);
+
+    /**
+     * Mark tweetId as a favorite to caller
+     *
+     * @param caller
+     * @param tweetId
+     */
+    void favorite(User caller, String tweetId);
+
+    /**
+     * Unmark this tweet as favorite to caller
+     *
+     * @param caller
+     * @param tweetId
+     */
+    void unfavorite(User caller, String tweetId);
 }

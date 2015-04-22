@@ -23,6 +23,10 @@
     fill: rgb(189, 189, 189);
 }
 
+.highlight {
+    fill: rgb(209, 132, 63);
+}
+
 .tweet ng-md-icon:hover {
     fill: rgb(33, 150, 243);
 }

@@ -17,15 +17,26 @@ import java.util.UUID;
  */
 public class TweetDaoImpl implements TweetDao {
 
-    public List<Tweet> getUserTimeLine(User ref) {
+    public List<Tweet> getUserTimeLine(User ref, User caller) {
         Jedis jedis = DbHelper.getJedis();
 
         Set<String> ids = jedis.zrange("timeLine:" + ref.getUsername(), 0, -1);
 
         List<Tweet> tweets = new ArrayList<Tweet>();
 
+        Set<String> retweetIds = jedis.smembers("user:" + caller.getUsername() + ":retweets");
+        Set<String> favIds = jedis.smembers("user:" + caller.getUsername() + ":favorites");
+
         for (String id : ids) {
-            tweets.add(new Tweet(jedis.hgetAll("tweet:" + id)));
+            Tweet tweet = new Tweet(jedis.hgetAll("tweet:" + id));
+
+            if (retweetIds.contains(id)) {
+                tweet.put("retweeted", "true");
+            }
+            if (favIds.contains(id)) {
+                tweet.put("favorite", "true");
+            }
+            tweets.add(tweet);
         }
         jedis.close();
         return tweets;
@@ -126,6 +137,28 @@ public class TweetDaoImpl implements TweetDao {
             jedis.sadd("user:" + callerId + ":following", targetId);
 
             jedis.zunionstore("timeLine:" + callerId, "timeLine:" + callerId, "user:" + targetId + ":tweets");
+
+            jedis.close();
+        } catch (Exception e) {
+        }
+    }
+
+    public void favorite(String userName, String tweetId) {
+        try {
+            Jedis jedis = DbHelper.getJedis();
+
+            jedis.sadd("user:" + userName + ":favorites", tweetId);
+
+            jedis.close();
+        } catch (Exception e) {
+        }
+    }
+
+    public void unfavorite(String userName, String tweetId) {
+        try {
+            Jedis jedis = DbHelper.getJedis();
+
+            jedis.srem("user:" + userName + ":favorites", tweetId);
 
             jedis.close();
         } catch (Exception e) {

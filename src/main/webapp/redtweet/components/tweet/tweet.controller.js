@@ -22,17 +22,31 @@
 
         function retweet() {
             console.log("retweet ", $scope.tweet);
-            Tweet.retweet($scope.tweet);
+            Tweet.retweet($scope.tweet)
+                .then(function () {
+                    $scope.tweet.retweeted = true;
+                });
         }
 
         function favorite() {
-            console.log("favorite ", $scope.tweet);
+
+            if ($scope.tweet.favorite) {
+                Tweet.unfavorite($scope.tweet)
+                    .then(function () {
+                        $scope.tweet.favorite = false;
+                    });
+            } else {
+                Tweet.favorite($scope.tweet)
+                    .then(function () {
+                        $scope.tweet.favorite = true;
+                    });
+            }
         }
 
         function deleteTweet() {
             Tweet.remove($scope.tweet)
-                .success(function () {
-                    // TODO delete tweet from client list
+                .then(function () {
+                    $rootScope.$broadcast("deleteTweet", $scope.tweet.id);
                 });
         }
     }

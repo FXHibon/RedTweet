@@ -60,4 +60,15 @@ public class UserDaoImpl implements UserDao {
             return false;
         }
     }
+
+    public boolean isUserFollowing(String username, String target) {
+        try {
+            Jedis jedis = DbHelper.getJedis();
+            Boolean sismember = jedis.sismember("user:" + username + ":following", target);
+            jedis.close();
+            return sismember;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

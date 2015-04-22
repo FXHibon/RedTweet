@@ -30,13 +30,15 @@ public class RestController {
     }
 
     @RequestMapping(value = "/user_timeline", method = RequestMethod.GET)
-    public Map getUserTimeLine(@RequestParam String userName) {
+    public Map getUserTimeLine(@RequestParam String userName, HttpServletRequest request) {
         User user = new User()
                 .setUsername(userName);
-
+        User caller = (User) request.getSession().getAttribute("user");
         Map<String, Object> result = new HashMap<String, Object>();
-        result.put("tweets", redService.getUserTimeLine(user));
-        result.putAll(redService.search(user.getUsername()));
+        result.put("tweets", redService.getUserTimeLine(user, caller));
+
+        // Add user information for profile view
+        result.put("user", redService.search(user.getUsername(), caller));
         return result;
     }
 
@@ -79,5 +81,17 @@ public class RestController {
     public void follow(@PathVariable String userName, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
         redService.follow(user, new User().setUsername(userName));
+    }
+
+    @RequestMapping(value = "/favorite/{id}", method = RequestMethod.POST)
+    public void favorite(@PathVariable String id, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        redService.favorite(user, id);
+    }
+
+    @RequestMapping(value = "/unfavorite/{id}", method = RequestMethod.POST)
+    public void unfavorite(@PathVariable String id, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        redService.unfavorite(user, id);
     }
 }

@@ -10,7 +10,14 @@ import java.util.List;
  */
 public interface TweetDao {
 
-    List<Tweet> getUserTimeLine(User ref);
+    /**
+     * Find ref time line, from caller point of view
+     *
+     * @param ref
+     * @param caller
+     * @return
+     */
+    List<Tweet> getUserTimeLine(User ref, User caller);
 
     List<Tweet> getRetweets(String userName);
 
@@ -23,4 +30,8 @@ public interface TweetDao {
     Tweet tweet(User user, Tweet tweet);
 
     void follow(String callerId, String targetId);
+
+    void favorite(String username, String tweetId);
+
+    void unfavorite(String callerUsername, String tweetId);
 }

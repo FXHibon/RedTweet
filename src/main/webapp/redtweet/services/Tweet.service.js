@@ -23,7 +23,8 @@
             submit: submit,
             getUserTimeLine: getUserTimeLine,
             retweet: retweet,
-            favorite: favorite
+            favorite: favorite,
+            unfavorite: unfavorite
         };
 
         function getHomeTimeLine() {
@@ -41,16 +42,27 @@
         }
 
         function retweet(tweet) {
-            retweetResource.save({id: tweet.id}, tweet);
+            return retweetResource
+                .save({id: tweet.id}, tweet)
+                .$promise;
         }
 
         function favorite(tweet) {
-            $log.info("asking favorite for ", tweet);
+            return $resource('api/favorite/:id')
+                .save({id: tweet.id}, {})
+                .$promise;
         }
 
         function remove(tweet) {
             return $resource('api/destroy/:id')
-                .save({id: tweet.id}, tweet);
+                .save({id: tweet.id}, tweet)
+                .$promise;
+        }
+
+        function unfavorite(tweet) {
+            return $resource('api/unfavorite/:id')
+                .save({id: tweet.id}, {})
+                .$promise;
         }
     }
 })();

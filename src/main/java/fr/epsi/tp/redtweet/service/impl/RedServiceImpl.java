@@ -26,8 +26,8 @@ public class RedServiceImpl implements RedService {
     @Resource
     private UserDao userDao;
 
-    public List<Tweet> getUserTimeLine(User ref) {
-        return tweetDao.getUserTimeLine(ref);
+    public List<Tweet> getUserTimeLine(User ref, User caller) {
+        return tweetDao.getUserTimeLine(ref, caller);
     }
 
     public Map<String, Object> retweet(User user, String id) {
@@ -46,7 +46,7 @@ public class RedServiceImpl implements RedService {
     }
 
     public List<Tweet> getHomeTimeLine(User user) {
-        return tweetDao.getUserTimeLine(user);
+        return tweetDao.getUserTimeLine(user, user);
     }
 
     public List<Tweet> getRetweets(String userName) {
@@ -119,9 +119,29 @@ public class RedServiceImpl implements RedService {
         return map;
     }
 
+    public Map search(String query, User caller) {
+        Map res;
+        try {
+            res = userDao.read(query);
+            res.put("followed", userDao.isUserFollowing(caller.getUsername(), query));
+        } catch (UserNotFound userNotFound) {
+            res = new HashMap();
+            res.put("msg", userNotFound.getMessage());
+        }
+        return res;
+    }
+
     public void follow(User caller, User target) {
         if (!caller.getUsername().equals(target.getUsername())) {
             tweetDao.follow(caller.getUsername(), target.getUsername());
         }
+    }
+
+    public void favorite(User caller, String tweetId) {
+        tweetDao.favorite(caller.getUsername(), tweetId);
+    }
+
+    public void unfavorite(User caller, String tweetId) {
+        tweetDao.unfavorite(caller.getUsername(), tweetId);
     }
 }

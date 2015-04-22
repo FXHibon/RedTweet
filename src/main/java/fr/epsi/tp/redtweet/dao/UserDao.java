@@ -15,4 +15,13 @@ public interface UserDao {
     boolean update(User user);
 
     boolean delete(User user);
+
+    /**
+     * Check of userName follows target
+     *
+     * @param username
+     * @param target
+     * @return
+     */
+    boolean isUserFollowing(String username, String target);
 }
