@@ -105,7 +105,7 @@ public class RedServiceImpl implements RedService {
         }
     }
 
-    public Map search(User caller, String query) {
+    public Map findUser(User caller, String query) {
         Map map = new HashMap();
 
         try {
@@ -119,6 +119,12 @@ public class RedServiceImpl implements RedService {
         }
 
         return map;
+    }
+
+    public List<Map> search(String query) {
+        List<Map> result;
+        result = userDao.search(query);
+        return result;
     }
 
     public void follow(User caller, User target) {

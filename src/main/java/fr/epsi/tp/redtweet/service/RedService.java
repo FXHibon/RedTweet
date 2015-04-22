@@ -75,12 +75,20 @@ public interface RedService {
     Map<String, String> tweet(User ref, Tweet tweet);
 
     /**
-     * Search for people, tags ...
+     * Search for people
      *
-     * @param query Query to be used for search
+     * @param query Query to be used for findUser
      * @return Results
      */
-    Map search(User caller, String query);
+    Map findUser(User caller, String query);
+
+    /**
+     * Search for user
+     *
+     * @param query
+     * @return
+     */
+    List<Map> search(String query);
 
     /**
      * Make caller user to follo target

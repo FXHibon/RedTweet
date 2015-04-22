@@ -6,7 +6,7 @@ import fr.epsi.tp.redtweet.dao.helper.DbHelper;
 import fr.epsi.tp.redtweet.exception.UserNotFound;
 import redis.clients.jedis.Jedis;
 
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by fx on 26/03/2015.
@@ -70,5 +70,32 @@ public class UserDaoImpl implements UserDao {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public List<Map> search(String query) {
+
+        List<Map> result;
+
+        try {
+            Jedis jedis = DbHelper.getJedis();
+
+            // Pretty bad, sorry :/
+            Set<String> keys = jedis.keys("user:" + query + "*");
+            Set<String> userNames = new HashSet<String>();
+            for (String key : keys) {
+                userNames.add(key.split(":")[1]);
+            }
+
+            result = new ArrayList<Map>();
+            for (String userName : userNames) {
+                result.add(read(userName).setPassword(""));
+            }
+
+            jedis.close();
+            return result;
+        } catch (Exception e) {
+            result = new ArrayList<Map>();
+        }
+        return result;
     }
 }

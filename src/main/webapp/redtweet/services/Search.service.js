@@ -12,7 +12,16 @@
     SearchService.$inject = ['$resource'];
 
     function SearchService($resource) {
-        return $resource('api/search');
+        return {
+            search: search
+        };
+
+        function search(query) {
+            return $resource('api/search')
+                .query(query)
+                .$promise;
+        }
+
 
     }
 })();

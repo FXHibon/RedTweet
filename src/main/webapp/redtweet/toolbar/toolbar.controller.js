@@ -9,9 +9,9 @@
         .module('RedTweet')
         .controller('ToolbarController', ToolbarController);
 
-    ToolbarController.$inject = ['$rootScope', '$log', 'User', '$q', 'Search'];
+    ToolbarController.$inject = ['$rootScope', '$log', 'User', '$q', 'Search', '$state'];
 
-    function ToolbarController($rootScope, $log, User, $q, Search) {
+    function ToolbarController($rootScope, $log, User, $q, Search, $state) {
 
         var me = this;
 
@@ -22,6 +22,7 @@
 
         me.logout = logout;
         me.querySearch = querySearch;
+        me.selectedItemChange = selectedItemChange;
 
         /////////////////////////////////////
 
@@ -36,13 +37,17 @@
                 });
         }
 
+        function selectedItemChange(item) {
+            if (item) {
+                $state.go('profile', {userName: item.userName});
+            }
+        }
+
         function querySearch(query) {
-            $log.info(query);
             var deferred = $q.defer();
 
             Search
-                .one()
-                .get({query: query})
+                .search({query: query})
                 .then(function (result) {
                     deferred.resolve(result);
                 })

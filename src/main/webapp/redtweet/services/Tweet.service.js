@@ -35,7 +35,7 @@
 
         function submit(tweet) {
             return homeTimeLineResource
-                .post(tweet)
+                .save(tweet)
                 .$promise;
         }
 

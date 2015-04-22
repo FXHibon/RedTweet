@@ -3,7 +3,6 @@ package fr.epsi.tp.redtweet.controllers;
 import fr.epsi.tp.redtweet.bean.Tweet;
 import fr.epsi.tp.redtweet.bean.User;
 import fr.epsi.tp.redtweet.service.RedService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +37,7 @@ public class RestController {
         result.put("tweets", redService.getUserTimeLine(user, caller));
 
         // Add user information for profile view
-        result.put("user", redService.search(caller, user.getUsername()));
+        result.put("user", redService.findUser(caller, user.getUsername()));
         return result;
     }
 
@@ -73,9 +72,9 @@ public class RestController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public Map search(@RequestParam String query, HttpServletRequest request) {
+    public List<Map> search(@RequestParam String query, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
-        return redService.search(user, query);
+        return redService.search(query);
     }
 
     @RequestMapping(value = "/follow/{userName}", method = RequestMethod.GET)
